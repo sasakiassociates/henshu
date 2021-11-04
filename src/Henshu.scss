@@ -1,0 +1,90 @@
+._vertical-align {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+
+    transform: translateY(-50%);
+}
+
+.Henshu {
+    &__Each {
+        &-selection {
+            position: fixed;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            z-index: 1;
+
+            pointer-events: none;
+        }
+
+        &-toolbar {
+            position: absolute;
+            top: 0;
+            right: 0;
+            pointer-events: all;
+            z-index: 1;
+
+            button {
+                display: inline-block;
+            }
+        }
+    }
+
+    &__EditableImage {
+        display: inline-block;
+        position: relative;
+
+        width: 100%;
+        height: 100%;
+
+        &.empty {
+            color: #aaa;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+
+            background: #f0f0f0;
+
+            em {
+                @extend ._vertical-align;
+            }
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+        .ReactDragDrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+
+            background: rgba(#aaa, .3);
+            transition: background .2s;
+
+            &:hover {
+                background: rgba(#aaa, .5);
+                transition: background .2s;
+            }
+        }
+
+        button {
+            position: relative;
+            z-index: 11;
+        }
+    }
+
+    &__EditableRichText {
+        margin: 0;
+        padding: 0;
+
+        ul {
+            list-style: disc;
+        }
+    }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "henshu",
+  "version": "1.0.0",
+  "description": "Content-editable React Library",
+  "author": "Eric Youngberg <eyoungberg@sasaki.com>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npx rollup -c",
+    "start": "npx rollup -c -w"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "@rollup/plugin-typescript": "^8.3.0",
+    "@types/md5": "^2.3.1",
+    "@types/react": "^17.0.33",
+    "node-sass": "^6.0.1",
+    "postcss": "^8.3.11",
+    "rollup": "^2.59.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.1",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "@sasaki-dev/react-drag-drop": "^1.1.1",
+    "@sasaki-dev/react-modal": "^1.1.0",
+    "md5": "^2.3.0",
+    "mobx": "^6.3.6",
+    "mobx-react": "^7.2.1",
+    "slate": "^0.66.5",
+    "slate-react": "^0.69.0"
+  }
+}

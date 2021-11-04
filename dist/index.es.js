@@ -2693,14 +2693,12 @@ var checkForProp = [
     'rel',
 ];
 function EditableImage(props) {
-    var _this = this;
     var editing = useHenshu().editing;
     var elem = props.elem, getter = props.getter, setter = props.setter;
     var htmlProps = strip(props, ['elem', 'getter', 'setter']);
     var onLoad = useCallback(function (file) {
-        var b64 = new Buffer(file.buffer).toString('base64');
-        var encoded = "data:" + file.mime + ";base64," + b64;
-        _this.props.setter(encoded);
+        var b64 = Buffer.from(file.buffer).toString('base64');
+        setter("data:" + file.mime + ";base64," + b64);
     }, [setter]);
     checkForProp.forEach(function (prop) {
         if (prop in props) {
@@ -13672,7 +13670,7 @@ var Editable = IS_ANDROID ? AndroidEditable : Editable$1;
 var LIST_TYPES = ['bulleted-list'];
 var DEFAULT_VALUE = "[\n    {\n        \"type\": \"paragraph\",\n        \"children\": [{ \"text\": \"\" }]\n    }\n]";
 function EditableRichText(_a) {
-    _a.app; var getter = _a.getter, setter = _a.setter; _a.persist;
+    var getter = _a.getter, setter = _a.setter;
     var editing = useHenshu().editing;
     var renderElement = useCallback(function (props) { return jsx(Element, __assign$1({}, props), void 0); }, []);
     var renderLeaf = useCallback(function (props) { return jsx(Leaf, __assign$1({}, props), void 0); }, []);

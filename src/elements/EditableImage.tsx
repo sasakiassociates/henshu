@@ -1,4 +1,4 @@
-import { Component, createElement, useCallback } from 'react';
+import { createElement, useCallback } from 'react';
 // @ts-ignore
 import DragDrop from '@sasaki-dev/react-drag-drop';
 
@@ -19,9 +19,8 @@ export default function EditableImage(props: HenshuElementProps) {
     const htmlProps = strip(props, ['elem', 'getter', 'setter']);
 
     const onLoad = useCallback((file: any) => {
-        const b64 = new Buffer(file.buffer).toString('base64');
-        const encoded = `data:${file.mime};base64,${b64}`;
-        this.props.setter(encoded);
+        const b64 = Buffer.from(file.buffer).toString('base64');
+        setter(`data:${file.mime};base64,${b64}`);
     }, [setter]);
 
     checkForProp.forEach(prop => {

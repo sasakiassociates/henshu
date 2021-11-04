@@ -16,7 +16,7 @@ const DEFAULT_VALUE = `[
     }
 ]`;
 
-export default function EditableRichText({ app, getter, setter, persist }: HenshuElementProps) {
+export default function EditableRichText({ getter, setter }: HenshuElementProps) {
   const { editing } = useHenshu();
   const renderElement = useCallback(props => <Element {...props} />, [])
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
@@ -49,7 +49,7 @@ export default function EditableRichText({ app, getter, setter, persist }: Hensh
         </Slate>
     </div>
   );
-}));
+};
 
 
 const toggleBlock = (editor:any, format:any) => {

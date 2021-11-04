@@ -3,9 +3,7 @@ import { createElement, HTMLAttributes } from 'react';
 //import each from './core/elements/Each';
 import EditableText, { TextElements } from './elements/EditableText';
 import EditableImage, { ImageElements } from './elements/EditableImage';
-/*
-import EditableRichText, { RichTextElements } from './core/elements/EditableRichText';
-*/
+import EditableRichText, { RichTextElements } from './elements/EditableRichText';
 
 export type HenshuElementProps = {
     elem: string,
@@ -19,17 +17,15 @@ const henshu: any = {
 };
 
 TextElements.forEach((elem: string) => {
-    henshu[elem] = (props: any) => createElement(EditableText, { ...props, elem });
+    henshu[elem] = (props: HenshuElementProps) => createElement(EditableText, { ...props, elem });
 });
 
 ImageElements.forEach((elem: string) => {
-    henshu[elem] = (props: any) => createElement(EditableImage, { ...props, elem });
+    henshu[elem] = (props: HenshuElementProps) => createElement(EditableImage, { ...props, elem });
 });
 
-/*
 RichTextElements.forEach((elem: string) => {
-    henshu[elem] = observer((props: any) => createElement(EditableRichText, props));
+    henshu[elem] = (props: HenshuElementProps) => createElement(EditableRichText, props);
 });
-*/
 
 export default henshu;

@@ -1,12 +1,9 @@
 import { ReactElement, useState, useEffect } from 'react';
 
 import './Henshu.scss';
+import { StringMap } from './utils';
 import HenshuContext, { DefaultContext, IHenshuContext } from './context';
 
-
-export type StringMap = {
-    [key: string]: any;
-};
 
 type Props = {
     children: ReactElement[];
@@ -16,7 +13,7 @@ type Props = {
 };
 
 export default function Henshu({ children, content, editing, onChange }: Props) {
-    const [context, setContext] = useState(DefaultContext);
+    const [context, setContext] = useState<IHenshuContext>(DefaultContext);
 
     useEffect(() => { 
         setContext({

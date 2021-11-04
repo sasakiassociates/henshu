@@ -29,3 +29,8 @@ export function randomString(length: number): string {
 }
 
 export function noop(_: any) {}
+
+export type StringMap = {
+    [key: string]: any;
+};
+

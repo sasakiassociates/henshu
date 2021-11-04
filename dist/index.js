@@ -134,7 +134,7 @@ function useHenshu() {
 }
 var DefaultContext = {
     editing: false,
-    bindTo: function (_) { return { getter: function () { return ''; }, setter: function (value) { } }; }
+    bindTo: function (_) { return { getter: function () { return ''; }, setter: function (_) { } }; }
 };
 var HenshuContext = React.createContext(DefaultContext);
 
@@ -154,6 +154,72 @@ function Henshu(_a) {
         });
     }, [content, editing, onChange]);
     return (jsxRuntime.jsx(HenshuContext.Provider, __assign$1({ value: context }, { children: children }), void 0));
+}
+
+function Each(props) {
+    var editing = useHenshu().editing;
+    var getter = props.getter, setter = props.setter;
+    var _a = React.useState(getter()), items = _a[0], setItems = _a[1];
+    var _b = React.useState(null), selection = _b[0], setSelection = _b[1];
+    var selectionPosition = {};
+    React.useEffect(function () {
+        var got = getter();
+        if (!Array.isArray(items)) {
+            setItems([{}]);
+        }
+        else if (JSON.stringify(got) !== JSON.stringify(items) && Array.isArray(got)) {
+            setItems(got);
+        }
+    }, [getter, items]);
+    var add = React.useCallback(function (index) {
+        items.splice(index, 0, {});
+        setter(items);
+    }, [items, setter]);
+    var move = React.useCallback(function (item, index) {
+        items.splice(items.indexOf(item), 1);
+        items.splice(index, 0, item);
+        setter(items);
+    }, [items, setter]);
+    var remove = React.useCallback(function (item) {
+        items.splice(items.indexOf(item), 1);
+        setter(items);
+    }, [items, setter]);
+    if (selection) {
+        var _c = selection.ref.getBoundingClientRect(), top_1 = _c.top, left = _c.left, height = _c.height, width = _c.width;
+        selectionPosition = {
+            top: top_1 + "px",
+            left: left + "px",
+            height: height + "px",
+            width: width + "px",
+        };
+    }
+    return jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [Array.isArray(items) && items.map(function (item, i) {
+                var child = props.children(function (key) { return ({
+                    getter: function () { return item[key] || ''; },
+                    setter: function (value) {
+                        var _a;
+                        items[i] = __assign$1(__assign$1({}, item), (_a = {}, _a[key] = value, _a));
+                        setter(items);
+                    },
+                }); }, i);
+                var ref;
+                return editing ? (React.createElement(child.type, __assign$1(__assign$1({}, child.props), { key: child.key, ref: function (r) { return ref = r; }, onMouseEnter: function (e) {
+                        if (child.props.onMouseEnter) {
+                            child.props.onMouseEnter(e);
+                        }
+                        setSelection({ i: i, item: item, ref: ref });
+                    }, onMouseOver: function (e) {
+                        if (child.props.onMouseOver) {
+                            child.props.onMouseOver(e);
+                        }
+                        setSelection({ i: i, item: item, ref: ref });
+                    }, onMouseLeave: function (e) {
+                        if (child.props.onMouseLeave) {
+                            child.props.onMouseLeave(e);
+                        }
+                        setTimeout(function () { return selection && selection.ref === ref && setSelection(null); }, 50);
+                    } }))) : (child);
+            }), selection && (jsxRuntime.jsx("div", __assign$1({ className: "Henshu__Each-selection", style: selectionPosition }, { children: jsxRuntime.jsxs("div", __assign$1({ className: "Henshu__Each-toolbar" }, { children: [jsxRuntime.jsx("button", __assign$1({ className: items.length === 1 ? 'disabled' : '', disabled: items.length === 1, onClick: function () { return remove(selection.item); } }, { children: "x" }), void 0), jsxRuntime.jsx("button", __assign$1({ className: selection.i === 0 ? 'disabled' : '', disabled: selection.i === 0, onClick: function () { return move(selection.item, selection.i - 1); } }, { children: "\u2190" }), void 0), jsxRuntime.jsx("button", __assign$1({ className: selection.i === items.length ? 'disabled' : '', disabled: selection.i === items.length - 1, onClick: function () { return move(selection.item, selection.i + 1); } }, { children: "\u2192" }), void 0), jsxRuntime.jsx("button", __assign$1({ className: props.max !== undefined && items.length === props.max ? 'disabled' : '', disabled: props.max !== undefined && items.length === props.max, onClick: function () { return add(selection.i + 1); } }, { children: "+" }), void 0)] }), void 0) }), void 0))] }, void 0);
 }
 
 /**
@@ -13787,7 +13853,7 @@ var RichTextElements = [
 ];
 
 var henshu = {
-//each
+    each: Each
 };
 TextElements.forEach(function (elem) {
     henshu[elem] = function (props) { return React.createElement(EditableText, __assign$1(__assign$1({}, props), { elem: elem })); };

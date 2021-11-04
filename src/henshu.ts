@@ -1,6 +1,6 @@
 import { createElement, HTMLAttributes } from 'react';
 
-//import each from './core/elements/Each';
+import each from './elements/Each';
 import EditableText, { TextElements } from './elements/EditableText';
 import EditableImage, { ImageElements } from './elements/EditableImage';
 import EditableRichText, { RichTextElements } from './elements/EditableRichText';
@@ -13,7 +13,7 @@ export type HenshuElementProps = {
 
 
 const henshu: any = {
-    //each
+    each
 };
 
 TextElements.forEach((elem: string) => {

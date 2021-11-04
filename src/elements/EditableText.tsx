@@ -1,13 +1,8 @@
-import React, { SyntheticEvent } from 'react';
+import { Component, createElement, SyntheticEvent } from 'react';
 
 import { strip } from '../utils';
+import { HenshuElementProps } from '../henshu';
 
-
-type EditableTextProps = {
-    elem: string,
-    getter: () => any,
-    setter: (val: any) => void,
-} & React.HTMLAttributes<HTMLDivElement>;
 
 type EditableTextState = {
     cached: string;
@@ -34,9 +29,9 @@ const removePropIfEditing = [
 ]
 
 
-class EditableText extends React.Component<EditableTextProps, EditableTextState> {
+class EditableText extends Component<HenshuElementProps, EditableTextState> {
 
-    constructor(props: EditableTextProps) {
+    constructor(props: HenshuElementProps) {
         super(props);
 
         this.state = {
@@ -55,6 +50,7 @@ class EditableText extends React.Component<EditableTextProps, EditableTextState>
     }
 
     render() {
+        let editing = true;
         const { elem, getter, setter } = this.props;
         const htmlProps = strip(this.props, henshuProps)
 
@@ -65,15 +61,13 @@ class EditableText extends React.Component<EditableTextProps, EditableTextState>
             }
         });
 
-        /*
-        if (app && app.isEditing) {
+        if (editing) {
             removePropIfEditing.forEach(prop => delete htmlProps[prop]);
         }
 
-        if (app && !app.isEditing) {
-            return React.createElement(elem, htmlProps, <>{getter() || '...'}</>);
+        if (!editing) {
+            return createElement(elem, htmlProps, <>{getter() || '...'}</>);
         }
-         */
 
         const update = (e: SyntheticEvent, blur: boolean = false) => {
             const node = e.currentTarget as Node;
@@ -87,7 +81,7 @@ class EditableText extends React.Component<EditableTextProps, EditableTextState>
             }
         };
 
-        return React.createElement(
+        return createElement(
             elem, 
             { 
                 ...htmlProps,

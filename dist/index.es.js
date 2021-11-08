@@ -245,6 +245,7 @@ function EditableText(props) {
     var _b = useState(false), focused = _b[0], setFocused = _b[1];
     var htmlProps = strip(props, ['elem', 'getter', 'setter']);
     if (!focused && getter() !== cached) {
+        //console.log('setting', getter(), cached);
         setCached(getter());
     }
     var update = useCallback(function (e, blur) {
@@ -253,6 +254,7 @@ function EditableText(props) {
         if (node) {
             setter(String(node.textContent).trim());
             if (blur) {
+                //console.log("blurred");
                 setCached(getter());
                 setFocused(false);
             }
@@ -270,7 +272,10 @@ function EditableText(props) {
     if (!editing) {
         return createElement(elem, htmlProps, jsx(Fragment, { children: getter() || '...' }, void 0));
     }
-    return createElement(elem, __assign$1(__assign$1({}, htmlProps), { contentEditable: true, suppressContentEditableWarning: true, onBlur: function (e) { return update(e, true); }, onFocus: function () { return setFocused(true); }, onInput: update, onPaste: update }), jsx(Fragment, { children: cached.trim() || 'Edit text here ...' }, void 0));
+    if (props.id) {
+        console.log(props.id, cached);
+    }
+    return createElement(elem, __assign$1(__assign$1({}, htmlProps), { contentEditable: true, suppressContentEditableWarning: true, onBlur: function (e) { return update(e, true); }, onFocus: function () { return setFocused(true); }, onInput: update, onPaste: update, content: cached }), cached.trim() || 'Edit text here ...');
 }
 var TextElements = [
     'a',
@@ -13826,7 +13831,7 @@ var Leaf = function (_a) {
 var BlockButton = function (_a) {
     var format = _a.format, icon = _a.icon;
     var editor = useSlate();
-    return (jsx("button", __assign$1({ active: isBlockActive(editor, format), onMouseDown: function (event) {
+    return (jsx("button", __assign$1({ active: isBlockActive(editor, format).toString(), onMouseDown: function (event) {
             event.preventDefault();
             toggleBlock(editor, format);
         } }, { children: icon }), void 0));
@@ -13834,7 +13839,7 @@ var BlockButton = function (_a) {
 var MarkButton = function (_a) {
     var format = _a.format, icon = _a.icon;
     var editor = useSlate();
-    return (jsx("button", __assign$1({ active: isMarkActive(editor, format), onMouseDown: function (event) {
+    return (jsx("button", __assign$1({ active: isMarkActive(editor, format).toString(), onMouseDown: function (event) {
             event.preventDefault();
             toggleMark(editor, format);
         } }, { children: icon }), void 0));

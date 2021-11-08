@@ -145,7 +145,7 @@ const BlockButton = ({ format, icon }) => {
   const editor = useSlate()
   return (
     <button
-      active={isBlockActive(editor, format)}
+      active={isBlockActive(editor, format).toString()}
       onMouseDown={event => {
         event.preventDefault()
         toggleBlock(editor, format)
@@ -160,7 +160,7 @@ const MarkButton = ({ format, icon }) => {
   const editor = useSlate()
   return (
     <button
-      active={isMarkActive(editor, format)}
+      active={isMarkActive(editor, format).toString()}
       onMouseDown={event => {
         event.preventDefault()
         toggleMark(editor, format)

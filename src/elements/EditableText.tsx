@@ -25,7 +25,6 @@ export default function EditableText(props: HenshuElementProps) {
     const htmlProps = strip(props, ['elem', 'getter', 'setter']);
 
     if (!focused && getter() !== cached) {
-        //console.log('setting', getter(), cached);
         setCached(getter());
     }
 
@@ -35,7 +34,6 @@ export default function EditableText(props: HenshuElementProps) {
             setter(String(node.textContent).trim());
 
             if (blur) {
-                //console.log("blurred");
                 setCached(getter());
                 setFocused(false);
             }
@@ -55,10 +53,6 @@ export default function EditableText(props: HenshuElementProps) {
 
     if (!editing) {
         return createElement(elem, htmlProps, <>{getter() || '...'}</>);
-    }
-
-    if (props.id) {
-        console.log(props.id, cached);
     }
 
     return createElement(

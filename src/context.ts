@@ -2,8 +2,8 @@ import { createContext, useContext } from 'react';
 
 
 export type GetterSetter = {
-    getter(): any;
-    setter(value: any): void;
+    get(): any;
+    set(value: any): void;
 };
 
 export function useHenshu() {
@@ -17,7 +17,7 @@ export interface IHenshuContext {
 
 const DefaultContext: IHenshuContext = {
     editing: false,
-    bindTo(_: string) { return { getter() { return '' }, setter(_: any) {}}; }
+    bindTo(_: string) { return { get() { return '' }, set(_: any) {}}; }
 }
 
 const HenshuContext = createContext<IHenshuContext>(DefaultContext);

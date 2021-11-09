@@ -7,8 +7,8 @@ import EditableRichText, { RichTextElements } from './elements/EditableRichText'
 
 export type HenshuElementProps = {
     elem: string,
-    getter: () => any,
-    setter: (val: any) => void,
+    get: () => any,
+    set: (val: any) => void,
 } & HTMLAttributes<HTMLDivElement>;
 
 

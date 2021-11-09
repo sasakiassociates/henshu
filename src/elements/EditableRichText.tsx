@@ -16,7 +16,7 @@ const DEFAULT_VALUE = `[
     }
 ]`;
 
-export default function EditableRichText({ getter, setter }: HenshuElementProps) {
+export default function EditableRichText({ get, set }: HenshuElementProps) {
   const { editing } = useHenshu();
   const renderElement = useCallback(props => <Element {...props} />, [])
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
@@ -26,8 +26,8 @@ export default function EditableRichText({ getter, setter }: HenshuElementProps)
       <div className="Henshu__EditableRichText">
           <Slate 
               editor={editor} 
-              value={JSON.parse(getter() || DEFAULT_VALUE)} 
-              onChange={v => setter(JSON.stringify(v))}
+              value={JSON.parse(get() || DEFAULT_VALUE)} 
+              onChange={v => set(JSON.stringify(v))}
           >
             {editing && (
               <div>

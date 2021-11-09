@@ -125,7 +125,7 @@ function useHenshu() {
 }
 var DefaultContext = {
     editing: false,
-    bindTo: function (_) { return { getter: function () { return ''; }, setter: function (_) { } }; }
+    bindTo: function (_) { return { get: function () { return ''; }, set: function (_) { } }; }
 };
 var HenshuContext = createContext(DefaultContext);
 
@@ -135,8 +135,8 @@ function Henshu(_a) {
     useEffect(function () {
         setContext({
             bindTo: function (key) { return ({
-                getter: function () { return content[key] || ''; },
-                setter: function (value) {
+                get: function () { return content[key] || ''; },
+                set: function (value) {
                     var _a;
                     return onChange(__assign$1(__assign$1({}, content), (_a = {}, _a[key] = value, _a)));
                 }
@@ -149,32 +149,32 @@ function Henshu(_a) {
 
 function Each(props) {
     var editing = useHenshu().editing;
-    var getter = props.getter, setter = props.setter;
-    var _a = useState(getter()), items = _a[0], setItems = _a[1];
+    var get = props.get, set = props.set;
+    var _a = useState(get()), items = _a[0], setItems = _a[1];
     var _b = useState(null), selection = _b[0], setSelection = _b[1];
     var selectionPosition = {};
     useEffect(function () {
-        var got = getter();
+        var got = get();
         if (!Array.isArray(items)) {
             setItems([{}]);
         }
         else if (JSON.stringify(got) !== JSON.stringify(items) && Array.isArray(got)) {
             setItems(got);
         }
-    }, [getter, items]);
+    }, [get, items]);
     var add = useCallback(function (index) {
         items.splice(index, 0, {});
-        setter(items);
-    }, [items, setter]);
+        set(items);
+    }, [items, set]);
     var move = useCallback(function (item, index) {
         items.splice(items.indexOf(item), 1);
         items.splice(index, 0, item);
-        setter(items);
-    }, [items, setter]);
+        set(items);
+    }, [items, set]);
     var remove = useCallback(function (item) {
         items.splice(items.indexOf(item), 1);
-        setter(items);
-    }, [items, setter]);
+        set(items);
+    }, [items, set]);
     if (selection) {
         var _c = selection.ref.getBoundingClientRect(), top_1 = _c.top, left = _c.left, height = _c.height, width = _c.width;
         selectionPosition = {
@@ -186,11 +186,11 @@ function Each(props) {
     }
     return jsxs(Fragment, { children: [Array.isArray(items) && items.map(function (item, i) {
                 var child = props.children(function (key) { return ({
-                    getter: function () { return item[key] || ''; },
-                    setter: function (value) {
+                    get: function () { return item[key] || ''; },
+                    set: function (value) {
                         var _a;
                         items[i] = __assign$1(__assign$1({}, item), (_a = {}, _a[key] = value, _a));
-                        setter(items);
+                        set(items);
                     },
                 }); }, i);
                 var ref;
@@ -239,25 +239,25 @@ var removePropIfEditing = [
     'onClick',
 ];
 function EditableText(props) {
-    var elem = props.elem, getter = props.getter, setter = props.setter;
+    var elem = props.elem, get = props.get, set = props.set;
     var editing = useHenshu().editing;
-    var _a = useState(getter()), cached = _a[0], setCached = _a[1];
+    var _a = useState(get()), cached = _a[0], setCached = _a[1];
     var _b = useState(false), focused = _b[0], setFocused = _b[1];
     var htmlProps = strip(props, ['elem', 'getter', 'setter']);
-    if (!focused && getter() !== cached) {
-        setCached(getter());
+    if (!focused && get() !== cached) {
+        setCached(get());
     }
     var update = useCallback(function (e, blur) {
         if (blur === void 0) { blur = false; }
         var node = e.currentTarget;
         if (node) {
-            setter(String(node.textContent).trim());
+            set(String(node.textContent).trim());
             if (blur) {
-                setCached(getter());
+                setCached(get());
                 setFocused(false);
             }
         }
-    }, [getter, setter]);
+    }, [get, set]);
     checkForProp$1.forEach(function (prop) {
         if (prop in props) {
             /* @ts-ignore */
@@ -268,7 +268,7 @@ function EditableText(props) {
         removePropIfEditing.forEach(function (prop) { return delete htmlProps[prop]; });
     }
     if (!editing) {
-        return createElement(elem, htmlProps, jsx(Fragment, { children: getter() || '...' }, void 0));
+        return createElement(elem, htmlProps, jsx(Fragment, { children: get() || '...' }, void 0));
     }
     return createElement(elem, __assign$1(__assign$1({}, htmlProps), { contentEditable: true, suppressContentEditableWarning: true, onBlur: function (e) { return update(e, true); }, onFocus: function () { return setFocused(true); }, onInput: update, onPaste: update, content: cached }), cached.trim() || 'Edit text here ...');
 }
@@ -2760,21 +2760,21 @@ var checkForProp = [
 ];
 function EditableImage(props) {
     var editing = useHenshu().editing;
-    var elem = props.elem, getter = props.getter, setter = props.setter;
+    var elem = props.elem, get = props.get, set = props.set;
     var htmlProps = strip(props, ['elem', 'getter', 'setter']);
     var onLoad = useCallback(function (file) {
         var b64 = Buffer.from(file.buffer).toString('base64');
-        setter("data:" + file.mime + ";base64," + b64);
-    }, [setter]);
+        set("data:" + file.mime + ";base64," + b64);
+    }, [set]);
     checkForProp.forEach(function (prop) {
         if (prop in props) {
             /* @ts-ignore */
             htmlProps[prop] = props[prop];
         }
     });
-    htmlProps['src'] = getter();
+    htmlProps['src'] = get();
     var node = htmlProps['src'] ? createElement(elem, htmlProps) : (jsx("div", __assign$1({ className: "Henshu__EditableImage empty" }, { children: jsx("em", { children: "..." }, void 0) }), void 0));
-    return !editing ? node : (jsxs("div", __assign$1({ className: "Henshu__EditableImage" }, { children: [node, jsx(ReactDragDrop, { onLoad: onLoad }, void 0), htmlProps['src'] && jsx("button", __assign$1({ onClick: function () { return setter(''); } }, { children: "Remove" }), void 0)] }), void 0));
+    return !editing ? node : (jsxs("div", __assign$1({ className: "Henshu__EditableImage" }, { children: [node, jsx(ReactDragDrop, { onLoad: onLoad }, void 0), htmlProps['src'] && jsx("button", __assign$1({ onClick: function () { return set(''); } }, { children: "Remove" }), void 0)] }), void 0));
 }
 var ImageElements = [
     'img'
@@ -13736,12 +13736,12 @@ var Editable = IS_ANDROID ? AndroidEditable : Editable$1;
 var LIST_TYPES = ['bulleted-list'];
 var DEFAULT_VALUE = "[\n    {\n        \"type\": \"paragraph\",\n        \"children\": [{ \"text\": \"\" }]\n    }\n]";
 function EditableRichText(_a) {
-    var getter = _a.getter, setter = _a.setter;
+    var get = _a.get, set = _a.set;
     var editing = useHenshu().editing;
     var renderElement = useCallback(function (props) { return jsx(Element, __assign$1({}, props), void 0); }, []);
     var renderLeaf = useCallback(function (props) { return jsx(Leaf, __assign$1({}, props), void 0); }, []);
     var editor = useMemo(function () { return withReact(createEditor()); }, []);
-    return (jsx("div", __assign$1({ className: "Henshu__EditableRichText" }, { children: jsxs(Slate, __assign$1({ editor: editor, value: JSON.parse(getter() || DEFAULT_VALUE), onChange: function (v) { return setter(JSON.stringify(v)); } }, { children: [editing && (jsxs("div", { children: [jsx(MarkButton, { format: "bold", icon: "bold" }, void 0), jsx(MarkButton, { format: "italic", icon: "italic" }, void 0), jsx(BlockButton, { format: "heading-one", icon: "h1" }, void 0), jsx(BlockButton, { format: "heading-two", icon: "h2" }, void 0), jsx(BlockButton, { format: "bulleted-list", icon: "list" }, void 0)] }, void 0)), jsx(Editable, { renderElement: renderElement, renderLeaf: renderLeaf, placeholder: editing ? 'Edit text here ...' : '...', spellCheck: true, autoFocus: true, readOnly: !editing }, void 0)] }), void 0) }), void 0));
+    return (jsx("div", __assign$1({ className: "Henshu__EditableRichText" }, { children: jsxs(Slate, __assign$1({ editor: editor, value: JSON.parse(get() || DEFAULT_VALUE), onChange: function (v) { return set(JSON.stringify(v)); } }, { children: [editing && (jsxs("div", { children: [jsx(MarkButton, { format: "bold", icon: "bold" }, void 0), jsx(MarkButton, { format: "italic", icon: "italic" }, void 0), jsx(BlockButton, { format: "heading-one", icon: "h1" }, void 0), jsx(BlockButton, { format: "heading-two", icon: "h2" }, void 0), jsx(BlockButton, { format: "bulleted-list", icon: "list" }, void 0)] }, void 0)), jsx(Editable, { renderElement: renderElement, renderLeaf: renderLeaf, placeholder: editing ? 'Edit text here ...' : '...', spellCheck: true, autoFocus: true, readOnly: !editing }, void 0)] }), void 0) }), void 0));
 }
 var toggleBlock = function (editor, format) {
     var isActive = isBlockActive(editor, format);

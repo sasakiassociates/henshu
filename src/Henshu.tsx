@@ -18,8 +18,8 @@ export default function Henshu({ children, content, editing, onChange }: Props) 
     useEffect(() => { 
         setContext({
             bindTo: (key: string) => ({
-                getter: () => content[key] || '',
-                setter: (value: any) => onChange({ ...content, [key]: value })
+                get: () => content[key] || '',
+                set: (value: any) => onChange({ ...content, [key]: value })
             }),
             editing
         });

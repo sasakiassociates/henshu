@@ -18,13 +18,13 @@ type EachProps = HenshuElementProps & {
 
 export default function Each(props: EachProps) {
     const { editing } = useHenshu();
-    const { getter, setter } = props;
-    const [items, setItems] = useState(getter());
+    const { get, set } = props;
+    const [items, setItems] = useState(get());
     const [selection, setSelection] = useState<Selection|null>(null);
     let selectionPosition = {};
 
     useEffect(() => {
-        const got = getter();
+        const got = get();
 
         if (!Array.isArray(items)) {
             setItems([{}]);
@@ -32,23 +32,23 @@ export default function Each(props: EachProps) {
         else if (JSON.stringify(got) !== JSON.stringify(items) && Array.isArray(got)) {
             setItems(got);
         }
-    }, [getter, items]);
+    }, [get, items]);
 
     const add = useCallback((index: number) => {
         items.splice(index, 0, {});
-        setter(items);
-    }, [items, setter]);
+        set(items);
+    }, [items, set]);
 
     const move = useCallback((item: StringMap, index: number) => {
         items.splice(items.indexOf(item), 1);
         items.splice(index, 0, item);
-        setter(items);
-    }, [items, setter]);
+        set(items);
+    }, [items, set]);
 
     const remove = useCallback((item: StringMap) => {
         items.splice(items.indexOf(item), 1);
-        setter(items);
-    }, [items, setter]);
+        set(items);
+    }, [items, set]);
 
     if (selection) {
         const { top, left, height, width } = selection.ref.getBoundingClientRect();
@@ -64,10 +64,10 @@ export default function Each(props: EachProps) {
     return <>
         {Array.isArray(items) && items.map((item: StringMap, i: number) => {
             const child = props.children((key: string) => ({
-                getter: () => item[key] || '',
-                setter: (value: any) => {
+                get: () => item[key] || '',
+                set: (value: any) => {
                     items[i] = { ...item, [key]: value };
-                    setter(items);
+                    set(items);
                 },
             }), i);
 

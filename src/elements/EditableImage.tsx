@@ -15,13 +15,13 @@ const checkForProp = [
 
 export default function EditableImage(props: HenshuElementProps) {
     const { editing } = useHenshu();
-    const { elem, getter, setter } = props;
+    const { elem, get, set } = props;
     const htmlProps = strip(props, ['elem', 'getter', 'setter']);
 
     const onLoad = useCallback((file: any) => {
         const b64 = Buffer.from(file.buffer).toString('base64');
-        setter(`data:${file.mime};base64,${b64}`);
-    }, [setter]);
+        set(`data:${file.mime};base64,${b64}`);
+    }, [set]);
 
     checkForProp.forEach(prop => {
         if (prop in props) {
@@ -30,7 +30,7 @@ export default function EditableImage(props: HenshuElementProps) {
         }
     });
 
-    htmlProps['src'] = getter();
+    htmlProps['src'] = get();
 
     const node = htmlProps['src'] ? createElement(elem, htmlProps) : (
         <div className="Henshu__EditableImage empty">
@@ -44,7 +44,7 @@ export default function EditableImage(props: HenshuElementProps) {
 
             <DragDrop onLoad={onLoad} />
 
-            {htmlProps['src'] && <button onClick={() => setter('')}>Remove</button>}
+            {htmlProps['src'] && <button onClick={() => set('')}>Remove</button>}
         </div>
     );
 };

@@ -18,27 +18,27 @@ const removePropIfEditing = [
 ]
 
 export default function EditableText(props: HenshuElementProps) {
-    const { elem, getter, setter } = props;
+    const { elem, get, set } = props;
     const { editing } = useHenshu();
-    const [cached, setCached] = useState(getter());
+    const [cached, setCached] = useState(get());
     const [focused, setFocused] = useState(false);
     const htmlProps = strip(props, ['elem', 'getter', 'setter']);
 
-    if (!focused && getter() !== cached) {
-        setCached(getter());
+    if (!focused && get() !== cached) {
+        setCached(get());
     }
 
     const update = useCallback((e: SyntheticEvent, blur: boolean = false) => {
         const node = e.currentTarget as Node;
         if (node) {
-            setter(String(node.textContent).trim());
+            set(String(node.textContent).trim());
 
             if (blur) {
-                setCached(getter());
+                setCached(get());
                 setFocused(false);
             }
         }
-    }, [getter, setter]);
+    }, [get, set]);
 
     checkForProp.forEach(prop => {
         if (prop in props) {
@@ -52,7 +52,7 @@ export default function EditableText(props: HenshuElementProps) {
     }
 
     if (!editing) {
-        return createElement(elem, htmlProps, <>{getter() || '...'}</>);
+        return createElement(elem, htmlProps, <>{get() || '...'}</>);
     }
 
     return createElement(

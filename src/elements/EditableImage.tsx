@@ -16,7 +16,7 @@ const checkForProp = [
 export default function EditableImage(props: HenshuElementProps) {
     const { editing } = useHenshu();
     const { elem, get, set } = props;
-    const htmlProps = strip(props, ['elem', 'getter', 'setter']);
+    const htmlProps = strip(props, ['elem', 'get', 'set']);
 
     const onLoad = useCallback((file: any) => {
         const b64 = Buffer.from(file.buffer).toString('base64');

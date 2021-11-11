@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { useMemo, useCallback } from 'react';
+import { useMemo, useCallback, useEffect, useState } from 'react';
 import { Editable, withReact, Slate, useSlate } from 'slate-react';
-import { Editor, Transforms, createEditor, Element as SlateElement } from 'slate';
+import { Editor, Node, Transforms, createEditor, Element as SlateElement } from 'slate';
 
 import { useHenshu } from '../context';
 import { HenshuElementProps } from '../henshu';
@@ -23,7 +23,7 @@ export default function EditableRichText({ get, set }: HenshuElementProps) {
   const editor = useMemo(() => withReact(createEditor()), []);
 
   return (
-      <div className="Henshu__EditableRichText">
+      <div key={get()} className="Henshu__EditableRichText">
           <Slate 
               editor={editor} 
               value={JSON.parse(get() || DEFAULT_VALUE)} 

@@ -27,6 +27,18 @@ var __assign$1 = function() {
     return __assign$1.apply(this, arguments);
 };
 
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
 function __awaiter$1(thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -2760,6 +2772,7 @@ var checkForProp = [
 function EditableImage(props) {
     var editing = useHenshu().editing;
     var elem = props.elem, get = props.get, set = props.set;
+    var className = props.className || '';
     var htmlProps = strip(props, ['elem', 'get', 'set']);
     var onLoad = useCallback(function (file) {
         var b64 = Buffer.from(file.buffer).toString('base64');
@@ -2772,8 +2785,8 @@ function EditableImage(props) {
         }
     });
     htmlProps['src'] = get();
-    var node = htmlProps['src'] ? createElement(elem, htmlProps) : (jsx("div", __assign$1({ className: "Henshu__EditableImage empty" }, { children: jsx("em", { children: "..." }, void 0) }), void 0));
-    return !editing ? node : (jsxs("div", __assign$1({ className: "Henshu__EditableImage" }, { children: [node, jsx(ReactDragDrop, { onLoad: onLoad }, void 0), htmlProps['src'] && jsx("button", __assign$1({ onClick: function () { return set(''); } }, { children: "Remove" }), void 0)] }), void 0));
+    var node = htmlProps['src'] ? createElement(elem, htmlProps) : (jsx("div", __assign$1({ className: "Henshu__EditableImage empty " + className }, { children: jsx("em", { children: "..." }, void 0) }), void 0));
+    return !editing ? node : (jsxs("div", __assign$1({ className: "Henshu__EditableImage " + className }, { children: [node, jsx(ReactDragDrop, { onLoad: onLoad }, void 0), htmlProps['src'] && jsx("button", __assign$1({ onClick: function () { return set(''); } }, { children: "Remove" }), void 0)] }), void 0));
 }
 var ImageElements = [
     'img'
@@ -41445,12 +41458,13 @@ var Editable = IS_ANDROID ? AndroidEditable : Editable$1;
 var LIST_TYPES = ['bulleted-list'];
 var DEFAULT_VALUE = "[\n    {\n        \"type\": \"paragraph\",\n        \"children\": [{ \"text\": \"\" }]\n    }\n]";
 function EditableRichText(_a) {
-    var get = _a.get, set = _a.set;
+    var get = _a.get, set = _a.set, props = __rest(_a, ["get", "set"]);
     var editing = useHenshu().editing;
     var renderElement = useCallback(function (props) { return jsx(Element, __assign$1({}, props), void 0); }, []);
     var renderLeaf = useCallback(function (props) { return jsx(Leaf, __assign$1({}, props), void 0); }, []);
     var editor = useMemo(function () { return withReact(createEditor()); }, []);
-    return (jsx("div", __assign$1({ className: "Henshu__EditableRichText" }, { children: jsxs(Slate, __assign$1({ editor: editor, value: JSON.parse(get() || DEFAULT_VALUE), onChange: function (v) { return set(JSON.stringify(v)); } }, { children: [editing && (jsxs("div", { children: [jsx(MarkButton, { format: "bold", icon: "bold" }, void 0), jsx(MarkButton, { format: "italic", icon: "italic" }, void 0), jsx(BlockButton, { format: "heading-one", icon: "h1" }, void 0), jsx(BlockButton, { format: "heading-two", icon: "h2" }, void 0), jsx(BlockButton, { format: "bulleted-list", icon: "list" }, void 0)] }, void 0)), jsx(Editable, { renderElement: renderElement, renderLeaf: renderLeaf, placeholder: editing ? 'Edit text here ...' : '...', spellCheck: true, autoFocus: true, readOnly: !editing }, void 0)] }), void 0) }), get()));
+    return (createElement("div", __assign$1({}, props, { key: get(), className: "Henshu__EditableRichText" }),
+        jsxs(Slate, __assign$1({ editor: editor, value: JSON.parse(get() || DEFAULT_VALUE), onChange: function (v) { return set(JSON.stringify(v)); } }, { children: [editing && (jsxs("div", { children: [jsx(MarkButton, { format: "bold", icon: "bold" }, void 0), jsx(MarkButton, { format: "italic", icon: "italic" }, void 0), jsx(BlockButton, { format: "heading-one", icon: "h1" }, void 0), jsx(BlockButton, { format: "heading-two", icon: "h2" }, void 0), jsx(BlockButton, { format: "bulleted-list", icon: "list" }, void 0)] }, void 0)), jsx(Editable, { renderElement: renderElement, renderLeaf: renderLeaf, placeholder: editing ? 'Edit text here ...' : '...', spellCheck: true, autoFocus: true, readOnly: !editing }, void 0)] }), void 0)));
 }
 var toggleBlock = function (editor, format) {
     var isActive = isBlockActive(editor, format);

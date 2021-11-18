@@ -16,14 +16,14 @@ const DEFAULT_VALUE = `[
     }
 ]`;
 
-export default function EditableRichText({ get, set }: HenshuElementProps) {
+export default function EditableRichText({ get, set, ...props }: HenshuElementProps) {
   const { editing } = useHenshu();
   const renderElement = useCallback(props => <Element {...props} />, [])
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
   const editor = useMemo(() => withReact(createEditor()), []);
 
   return (
-      <div key={get()} className="Henshu__EditableRichText">
+      <div {...props} key={get()} className="Henshu__EditableRichText">
           <Slate 
               editor={editor} 
               value={JSON.parse(get() || DEFAULT_VALUE)} 

@@ -16,6 +16,7 @@ const checkForProp = [
 export default function EditableImage(props: HenshuElementProps) {
     const { editing } = useHenshu();
     const { elem, get, set } = props;
+    const className = props.className || '';
     const htmlProps = strip(props, ['elem', 'get', 'set']);
 
     const onLoad = useCallback((file: any) => {
@@ -33,13 +34,13 @@ export default function EditableImage(props: HenshuElementProps) {
     htmlProps['src'] = get();
 
     const node = htmlProps['src'] ? createElement(elem, htmlProps) : (
-        <div className="Henshu__EditableImage empty">
+        <div className={`Henshu__EditableImage empty ${className}`}>
             <em>...</em>
         </div>
     );
 
     return !editing ? node : (
-        <div className="Henshu__EditableImage">
+        <div className={`Henshu__EditableImage ${className}`}>
             {node}
 
             <DragDrop onLoad={onLoad} />

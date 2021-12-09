@@ -89,5 +89,6 @@ const TextElements = [
     'li',
     'p',
     'span',
+    'strong',
 ];
 export { TextElements };

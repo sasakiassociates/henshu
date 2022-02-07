@@ -1,5 +1,5 @@
 import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
-import React, { createContext, useContext, useState, useEffect, useCallback, createElement, forwardRef, useImperativeHandle, Fragment as Fragment$1, useRef, useReducer, useMemo, useLayoutEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, createElement, useMemo, useRef, useReducer, forwardRef, useImperativeHandle, Fragment as Fragment$1, useLayoutEffect } from 'react';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -128,7 +128,7 @@ function styleInject$1(css, ref) {
   }
 }
 
-var css_248z$1 = "._vertical-align, .Henshu__EditableImage.empty em {\n  position: absolute;\n  top: 50%;\n  left: 0;\n  right: 0;\n  margin: auto;\n  transform: translateY(-50%); }\n\n.Henshu__Each-selection {\n  position: fixed;\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  z-index: 1;\n  pointer-events: none; }\n\n.Henshu__Each-toolbar {\n  position: absolute;\n  top: 0;\n  right: 0;\n  pointer-events: all;\n  z-index: 1; }\n  .Henshu__Each-toolbar button {\n    display: inline-block; }\n\n.Henshu__EditableImage {\n  display: inline-block;\n  position: relative;\n  width: 100%;\n  height: 100%; }\n  .Henshu__EditableImage.empty {\n    color: #aaa;\n    text-align: center;\n    font-size: 1.2rem;\n    font-weight: 700;\n    background: #f0f0f0; }\n  .Henshu__EditableImage img {\n    width: 100%;\n    height: auto; }\n  .Henshu__EditableImage .ReactDragDrop {\n    position: absolute;\n    top: 0;\n    left: 0;\n    z-index: 10;\n    background: rgba(170, 170, 170, 0.3);\n    transition: background .2s; }\n    .Henshu__EditableImage .ReactDragDrop:hover {\n      background: rgba(170, 170, 170, 0.5);\n      transition: background .2s; }\n  .Henshu__EditableImage button {\n    position: relative;\n    z-index: 11; }\n\n.Henshu__EditableRichText {\n  margin: 0;\n  padding: 0; }\n  .Henshu__EditableRichText ul {\n    list-style: disc; }\n";
+var css_248z$1 = "._vertical-align, .Henshu__EditableImage.empty em {\n  position: absolute;\n  top: 50%;\n  left: 0;\n  right: 0;\n  margin: auto;\n  transform: translateY(-50%);\n}\n\n.Henshu__Each-selection {\n  position: fixed;\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  z-index: 1;\n  pointer-events: none;\n}\n.Henshu__Each-toolbar {\n  position: absolute;\n  top: 0;\n  right: 0;\n  pointer-events: all;\n  z-index: 1;\n}\n.Henshu__Each-toolbar button {\n  display: inline-block;\n}\n.Henshu__EditableImage {\n  display: inline-block;\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.Henshu__EditableImage.empty {\n  color: #aaa;\n  text-align: center;\n  font-size: 1.2rem;\n  font-weight: 700;\n  background: #f0f0f0;\n}\n.Henshu__EditableImage img {\n  width: 100%;\n  height: auto;\n}\n.Henshu__EditableImage .ReactDragDrop {\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 10;\n  background: rgba(170, 170, 170, 0.3);\n  transition: background 0.2s;\n}\n.Henshu__EditableImage .ReactDragDrop:hover {\n  background: rgba(170, 170, 170, 0.5);\n  transition: background 0.2s;\n}\n.Henshu__EditableImage button {\n  position: relative;\n  z-index: 11;\n}\n.Henshu__EditableRichText {\n  margin: 0;\n  padding: 0;\n}\n.Henshu__EditableRichText ul {\n  list-style: disc;\n}";
 styleInject$1(css_248z$1);
 
 function useHenshu() {
@@ -189,10 +189,10 @@ function Each(props) {
     if (selection) {
         var _c = selection.ref.getBoundingClientRect(), top_1 = _c.top, left = _c.left, height = _c.height, width = _c.width;
         selectionPosition = {
-            top: top_1 + "px",
-            left: left + "px",
-            height: height + "px",
-            width: width + "px",
+            top: "".concat(top_1, "px"),
+            left: "".concat(left, "px"),
+            height: "".concat(height, "px"),
+            width: "".concat(width, "px"),
         };
     }
     return jsxs(Fragment, { children: [Array.isArray(items) && items.map(function (item, i) {
@@ -300,6 +300,7 @@ var TextElements = [
     'li',
     'p',
     'span',
+    'strong',
 ];
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
@@ -612,6 +613,8 @@ var ReactPropTypesSecret$3 = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
 var ReactPropTypesSecret_1 = ReactPropTypesSecret$3;
 
+var has$2 = Function.call.bind(Object.prototype.hasOwnProperty);
+
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -624,7 +627,7 @@ var printWarning$1 = function() {};
 if (process.env.NODE_ENV !== 'production') {
   var ReactPropTypesSecret$2 = ReactPropTypesSecret_1;
   var loggedTypeFailures = {};
-  var has$1 = Function.call.bind(Object.prototype.hasOwnProperty);
+  var has$1 = has$2;
 
   printWarning$1 = function(text) {
     var message = 'Warning: ' + text;
@@ -636,7 +639,7 @@ if (process.env.NODE_ENV !== 'production') {
       // This error was thrown as a convenience so that you can use this stack
       // to find the callsite that caused this warning to fire.
       throw new Error(message);
-    } catch (x) {}
+    } catch (x) { /**/ }
   };
 }
 
@@ -665,7 +668,8 @@ function checkPropTypes$1(typeSpecs, values, location, componentName, getStack) 
           if (typeof typeSpecs[typeSpecName] !== 'function') {
             var err = Error(
               (componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' +
-              'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.'
+              'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.' +
+              'This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.'
             );
             err.name = 'Invariant Violation';
             throw err;
@@ -724,9 +728,9 @@ var ReactIs$1 = reactIs.exports;
 var assign = objectAssign$1;
 
 var ReactPropTypesSecret$1 = ReactPropTypesSecret_1;
+var has = has$2;
 var checkPropTypes = checkPropTypes_1;
 
-var has = Function.call.bind(Object.prototype.hasOwnProperty);
 var printWarning = function() {};
 
 if (process.env.NODE_ENV !== 'production') {
@@ -827,6 +831,7 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
   // Keep this list in sync with production version in `./factoryWithThrowingShims.js`.
   var ReactPropTypes = {
     array: createPrimitiveTypeChecker('array'),
+    bigint: createPrimitiveTypeChecker('bigint'),
     bool: createPrimitiveTypeChecker('boolean'),
     func: createPrimitiveTypeChecker('function'),
     number: createPrimitiveTypeChecker('number'),
@@ -872,8 +877,9 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
    * is prohibitively expensive if they are created too often, such as what
    * happens in oneOfType() for any type before the one that matched.
    */
-  function PropTypeError(message) {
+  function PropTypeError(message, data) {
     this.message = message;
+    this.data = data && typeof data === 'object' ? data: {};
     this.stack = '';
   }
   // Make `instanceof Error` still work for returned errors.
@@ -908,7 +914,7 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
           ) {
             printWarning(
               'You are manually calling a React.PropTypes validation ' +
-              'function for the `' + propFullName + '` prop on `' + componentName  + '`. This is deprecated ' +
+              'function for the `' + propFullName + '` prop on `' + componentName + '`. This is deprecated ' +
               'and will throw in the standalone `prop-types` package. ' +
               'You may be seeing this warning due to a third-party PropTypes ' +
               'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.'
@@ -947,7 +953,10 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
         // 'of type `object`'.
         var preciseType = getPreciseType(propValue);
 
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'));
+        return new PropTypeError(
+          'Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'),
+          {expectedType: expectedType}
+        );
       }
       return null;
     }
@@ -1091,14 +1100,19 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
     }
 
     function validate(props, propName, componentName, location, propFullName) {
+      var expectedTypes = [];
       for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
         var checker = arrayOfTypeCheckers[i];
-        if (checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret$1) == null) {
+        var checkerResult = checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret$1);
+        if (checkerResult == null) {
           return null;
         }
+        if (checkerResult.data && has(checkerResult.data, 'expectedType')) {
+          expectedTypes.push(checkerResult.data.expectedType);
+        }
       }
-
-      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`.'));
+      var expectedTypesMessage = (expectedTypes.length > 0) ? ', expected one of type [' + expectedTypes.join(', ') + ']': '';
+      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`' + expectedTypesMessage + '.'));
     }
     return createChainableTypeChecker(validate);
   }
@@ -1113,6 +1127,13 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
     return createChainableTypeChecker(validate);
   }
 
+  function invalidValidatorError(componentName, location, propFullName, key, type) {
+    return new PropTypeError(
+      (componentName || 'React class') + ': ' + location + ' type `' + propFullName + '.' + key + '` is invalid; ' +
+      'it must be a function, usually from the `prop-types` package, but received `' + type + '`.'
+    );
+  }
+
   function createShapeTypeChecker(shapeTypes) {
     function validate(props, propName, componentName, location, propFullName) {
       var propValue = props[propName];
@@ -1122,8 +1143,8 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
       }
       for (var key in shapeTypes) {
         var checker = shapeTypes[key];
-        if (!checker) {
-          continue;
+        if (typeof checker !== 'function') {
+          return invalidValidatorError(componentName, location, propFullName, key, getPreciseType(checker));
         }
         var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret$1);
         if (error) {
@@ -1142,16 +1163,18 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
       if (propType !== 'object') {
         return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
       }
-      // We need to check all keys in case some are required but missing from
-      // props.
+      // We need to check all keys in case some are required but missing from props.
       var allKeys = assign({}, props[propName], shapeTypes);
       for (var key in allKeys) {
         var checker = shapeTypes[key];
+        if (has(shapeTypes, key) && typeof checker !== 'function') {
+          return invalidValidatorError(componentName, location, propFullName, key, getPreciseType(checker));
+        }
         if (!checker) {
           return new PropTypeError(
             'Invalid ' + location + ' `' + propFullName + '` key `' + key + '` supplied to `' + componentName + '`.' +
             '\nBad object: ' + JSON.stringify(props[propName], null, '  ') +
-            '\nValid keys: ' +  JSON.stringify(Object.keys(shapeTypes), null, '  ')
+            '\nValid keys: ' + JSON.stringify(Object.keys(shapeTypes), null, '  ')
           );
         }
         var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret$1);
@@ -1336,6 +1359,7 @@ var factoryWithThrowingShims = function() {
   // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
   var ReactPropTypes = {
     array: shim,
+    bigint: shim,
     bool: shim,
     func: shim,
     number: shim,
@@ -1387,19 +1411,86 @@ if (process.env.NODE_ENV !== 'production') {
 var PropTypes = propTypes.exports;
 
 var COMMON_MIME_TYPES = new Map([
-    ['avi', 'video/avi'],
+    // https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
+    ['aac', 'audio/aac'],
+    ['abw', 'application/x-abiword'],
+    ['arc', 'application/x-freearc'],
+    ['avif', 'image/avif'],
+    ['avi', 'video/x-msvideo'],
+    ['azw', 'application/vnd.amazon.ebook'],
+    ['bin', 'application/octet-stream'],
+    ['bmp', 'image/bmp'],
+    ['bz', 'application/x-bzip'],
+    ['bz2', 'application/x-bzip2'],
+    ['cda', 'application/x-cdf'],
+    ['csh', 'application/x-csh'],
+    ['css', 'text/css'],
+    ['csv', 'text/csv'],
+    ['doc', 'application/msword'],
+    ['docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+    ['eot', 'application/vnd.ms-fontobject'],
+    ['epub', 'application/epub+zip'],
+    ['gz', 'application/gzip'],
     ['gif', 'image/gif'],
-    ['ico', 'image/x-icon'],
+    ['htm', 'text/html'],
+    ['html', 'text/html'],
+    ['ico', 'image/vnd.microsoft.icon'],
+    ['ics', 'text/calendar'],
+    ['jar', 'application/java-archive'],
     ['jpeg', 'image/jpeg'],
     ['jpg', 'image/jpeg'],
+    ['js', 'text/javascript'],
+    ['json', 'application/json'],
+    ['jsonld', 'application/ld+json'],
+    ['mid', 'audio/midi'],
+    ['midi', 'audio/midi'],
+    ['mjs', 'text/javascript'],
+    ['mp3', 'audio/mpeg'],
+    ['mp4', 'video/mp4'],
+    ['mpeg', 'video/mpeg'],
+    ['mpkg', 'application/vnd.apple.installer+xml'],
+    ['odp', 'application/vnd.oasis.opendocument.presentation'],
+    ['ods', 'application/vnd.oasis.opendocument.spreadsheet'],
+    ['odt', 'application/vnd.oasis.opendocument.text'],
+    ['oga', 'audio/ogg'],
+    ['ogv', 'video/ogg'],
+    ['ogx', 'application/ogg'],
+    ['opus', 'audio/opus'],
+    ['otf', 'font/otf'],
+    ['png', 'image/png'],
+    ['pdf', 'application/pdf'],
+    ['php', 'application/x-httpd-php'],
+    ['ppt', 'application/vnd.ms-powerpoint'],
+    ['pptx', 'application/vnd.openxmlformats-officedocument.presentationml.presentation'],
+    ['rar', 'application/vnd.rar'],
+    ['rtf', 'application/rtf'],
+    ['sh', 'application/x-sh'],
+    ['svg', 'image/svg+xml'],
+    ['swf', 'application/x-shockwave-flash'],
+    ['tar', 'application/x-tar'],
+    ['tif', 'image/tiff'],
+    ['tiff', 'image/tiff'],
+    ['ts', 'video/mp2t'],
+    ['ttf', 'font/ttf'],
+    ['txt', 'text/plain'],
+    ['vsd', 'application/vnd.visio'],
+    ['wav', 'audio/wav'],
+    ['weba', 'audio/webm'],
+    ['webm', 'video/webm'],
+    ['webp', 'image/webp'],
+    ['woff', 'font/woff'],
+    ['woff2', 'font/woff2'],
+    ['xhtml', 'application/xhtml+xml'],
+    ['xls', 'application/vnd.ms-excel'],
+    ['xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+    ['xml', 'application/xml'],
+    ['xul', 'application/vnd.mozilla.xul+xml'],
+    ['zip', 'application/zip'],
+    ['7z', 'application/x-7z-compressed'],
+    // Others
     ['mkv', 'video/x-matroska'],
     ['mov', 'video/quicktime'],
-    ['mp4', 'video/mp4'],
-    ['pdf', 'application/pdf'],
-    ['png', 'image/png'],
-    ['zip', 'application/zip'],
-    ['doc', 'application/msword'],
-    ['docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
+    ['msg', 'application/vnd.ms-outlook']
 ]);
 function toFileWithPath(file, path) {
     var f = withMimeType(file);
@@ -1449,30 +1540,53 @@ var FILES_TO_IGNORE = [
  * Convert a DragEvent's DataTrasfer object to a list of File objects
  * NOTE: If some of the items are folders,
  * everything will be flattened and placed in the same list but the paths will be kept as a {path} property.
+ *
+ * EXPERIMENTAL: A list of https://developer.mozilla.org/en-US/docs/Web/API/FileSystemHandle objects can also be passed as an arg
+ * and a list of File objects will be returned.
+ *
  * @param evt
  */
 function fromEvent(evt) {
     return __awaiter$1(this, void 0, void 0, function () {
         return __generator$1(this, function (_a) {
-            return [2 /*return*/, isDragEvt(evt) && evt.dataTransfer
-                    ? getDataTransferFiles(evt.dataTransfer, evt.type)
-                    : getInputFiles(evt)];
+            if (isObject$5(evt) && isDataTransfer(evt)) {
+                return [2 /*return*/, getDataTransferFiles(evt.dataTransfer, evt.type)];
+            }
+            else if (isChangeEvt(evt)) {
+                return [2 /*return*/, getInputFiles(evt)];
+            }
+            else if (Array.isArray(evt) && evt.every(function (item) { return 'getFile' in item && typeof item.getFile === 'function'; })) {
+                return [2 /*return*/, getFsHandleFiles(evt)];
+            }
+            return [2 /*return*/, []];
         });
     });
 }
-function isDragEvt(value) {
-    return !!value.dataTransfer;
+function isDataTransfer(value) {
+    return isObject$5(value.dataTransfer);
+}
+function isChangeEvt(value) {
+    return isObject$5(value) && isObject$5(value.target);
+}
+function isObject$5(v) {
+    return typeof v === 'object' && v !== null;
 }
 function getInputFiles(evt) {
-    var files = isInput(evt.target)
-        ? evt.target.files
-            ? fromList(evt.target.files)
-            : []
-        : [];
-    return files.map(function (file) { return toFileWithPath(file); });
+    return fromList(evt.target.files).map(function (file) { return toFileWithPath(file); });
 }
-function isInput(value) {
-    return value !== null;
+// Ee expect each handle to be https://developer.mozilla.org/en-US/docs/Web/API/FileSystemFileHandle
+function getFsHandleFiles(handles) {
+    return __awaiter$1(this, void 0, void 0, function () {
+        var files;
+        return __generator$1(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, Promise.all(handles.map(function (h) { return h.getFile(); }))];
+                case 1:
+                    files = _a.sent();
+                    return [2 /*return*/, files.map(function (file) { return toFileWithPath(file); })];
+            }
+        });
+    });
 }
 function getDataTransferFiles(dt, type) {
     return __awaiter$1(this, void 0, void 0, function () {
@@ -1480,6 +1594,9 @@ function getDataTransferFiles(dt, type) {
         return __generator$1(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    if (dt === null) {
+                        return [2 /*return*/, []];
+                    }
                     if (!dt.items) return [3 /*break*/, 2];
                     items = fromList(dt.items)
                         .filter(function (item) { return item.kind === 'file'; });
@@ -1506,6 +1623,9 @@ function noIgnoredFiles(files) {
 // https://developer.mozilla.org/en-US/docs/Web/API/FileList
 // https://developer.mozilla.org/en-US/docs/Web/API/DataTransferItemList
 function fromList(items) {
+    if (items === null) {
+        return [];
+    }
     var files = [];
     // tslint:disable: prefer-for-of
     for (var i = 0; i < items.length; i++) {
@@ -1630,6 +1750,12 @@ var _default = function (file, acceptedFiles) {
   return true;
 };
 
+function ownKeys$c(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$c(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys$c(Object(source), !0).forEach(function (key) { _defineProperty$3(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys$c(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty$3(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _slicedToArray$1(arr, i) { return _arrayWithHoles$1(arr) || _iterableToArrayLimit$1(arr, i) || _unsupportedIterableToArray$1(arr, i) || _nonIterableRest$1(); }
 
 function _nonIterableRest$1() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -1658,13 +1784,13 @@ var getInvalidTypeRejectionErr = function getInvalidTypeRejectionErr(accept) {
 var getTooLargeRejectionErr = function getTooLargeRejectionErr(maxSize) {
   return {
     code: FILE_TOO_LARGE,
-    message: "File is larger than ".concat(maxSize, " bytes")
+    message: "File is larger than ".concat(maxSize, " ").concat(maxSize === 1 ? 'byte' : 'bytes')
   };
 };
 var getTooSmallRejectionErr = function getTooSmallRejectionErr(minSize) {
   return {
     code: FILE_TOO_SMALL,
-    message: "File is smaller than ".concat(minSize, " bytes")
+    message: "File is smaller than ".concat(minSize, " ").concat(minSize === 1 ? 'byte' : 'bytes')
   };
 };
 var TOO_MANY_FILES_REJECTION = {
@@ -1786,10 +1912,40 @@ function composeEventHandlers() {
     });
   };
 }
+/**
+ * canUseFileSystemAccessAPI checks if the [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API)
+ * is supported by the browser.
+ * @returns {boolean}
+ */
+
+function canUseFileSystemAccessAPI() {
+  return 'showOpenFilePicker' in window;
+}
+/**
+ * filePickerOptionsTypes returns the {types} option for https://developer.mozilla.org/en-US/docs/Web/API/window/showOpenFilePicker
+ * based on the accept attr (see https://github.com/react-dropzone/attr-accept)
+ * E.g: converts ['image/*', 'text/*'] to {'image/*': [], 'text/*': []}
+ * @param {string|string[]} accept
+ */
+
+function filePickerOptionsTypes(accept) {
+  accept = typeof accept === 'string' ? accept.split(',') : accept;
+  return [{
+    description: 'everything',
+    // TODO: Need to handle filtering more elegantly than this!
+    accept: Array.isArray(accept) // Accept just MIME types as per spec
+    // NOTE: accept can be https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers
+    ? accept.filter(function (item) {
+      return item === 'audio/*' || item === 'video/*' || item === 'image/*' || item === 'text/*' || /\w+\/[-+.\w]+/g.test(item);
+    }).reduce(function (a, b) {
+      return _objectSpread$c(_objectSpread$c({}, a), {}, _defineProperty$3({}, b, []));
+    }, {}) : {}
+  }];
+}
 
 var _excluded$6 = ["children"],
     _excluded2$5 = ["open"],
-    _excluded3 = ["refKey", "onKeyDown", "onFocus", "onBlur", "onClick", "onDragEnter", "onDragOver", "onDragLeave", "onDrop"],
+    _excluded3 = ["refKey", "role", "onKeyDown", "onFocus", "onBlur", "onClick", "onDragEnter", "onDragOver", "onDragLeave", "onDrop"],
     _excluded4 = ["refKey", "onChange", "onClick"];
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -1812,9 +1968,9 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function ownKeys$b(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$b(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$b(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$b(Object(source), true).forEach(function (key) { _defineProperty$2(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$b(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$b(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys$b(Object(source), !0).forEach(function (key) { _defineProperty$2(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys$b(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty$2(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -1868,7 +2024,8 @@ var defaultProps = {
   noKeyboard: false,
   noDrag: false,
   noDragEventsBubbling: false,
-  validator: null
+  validator: null,
+  useFsAccessApi: false
 };
 Dropzone.defaultProps = defaultProps;
 Dropzone.propTypes = {
@@ -1965,6 +2122,17 @@ Dropzone.propTypes = {
   onFileDialogCancel: PropTypes.func,
 
   /**
+   * Cb for when opening the file dialog
+   */
+  onFileDialogOpen: PropTypes.func,
+
+  /**
+   * Set to true to use the https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API
+   * to open the file picker instead of using an `<input type="file">` click event.
+   */
+  useFsAccessApi: PropTypes.bool,
+
+  /**
    * Cb for when the `dragenter` event occurs.
    *
    * @param {DragEvent} event
@@ -2036,7 +2204,7 @@ Dropzone.propTypes = {
   onDropRejected: PropTypes.func,
 
   /**
-   * Custom validation function 
+   * Custom validation function
    * @param {File} file
    * @returns {FileError|FileError[]}
    */
@@ -2156,6 +2324,9 @@ var initialState = {
  * @param {boolean} [props.disabled=false] Enable/disable the dropzone
  * @param {getFilesFromEvent} [props.getFilesFromEvent] Use this to provide a custom file aggregator
  * @param {Function} [props.onFileDialogCancel] Cb for when closing the file dialog with no selection
+ * @param {boolean} [props.useFsAccessApi] Set to true to use the https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API
+ * to open the file picker instead of using an `<input type="file">` click event.
+ * @param {Function} [props.onFileDialogOpen] Cb for when opening the file dialog
  * @param {dragCb} [props.onDragEnter] Cb for when the `dragenter` event occurs.
  * @param {dragCb} [props.onDragLeave] Cb for when the `dragleave` event occurs
  * @param {dragCb} [props.onDragOver] Cb for when the `dragover` event occurs
@@ -2207,6 +2378,8 @@ function useDropzone() {
       onDropAccepted = _defaultProps$options.onDropAccepted,
       onDropRejected = _defaultProps$options.onDropRejected,
       onFileDialogCancel = _defaultProps$options.onFileDialogCancel,
+      onFileDialogOpen = _defaultProps$options.onFileDialogOpen,
+      useFsAccessApi = _defaultProps$options.useFsAccessApi,
       preventDropOnDocument = _defaultProps$options.preventDropOnDocument,
       noClick = _defaultProps$options.noClick,
       noKeyboard = _defaultProps$options.noKeyboard,
@@ -2214,6 +2387,12 @@ function useDropzone() {
       noDragEventsBubbling = _defaultProps$options.noDragEventsBubbling,
       validator = _defaultProps$options.validator;
 
+  var onFileDialogOpenCb = useMemo(function () {
+    return typeof onFileDialogOpen === 'function' ? onFileDialogOpen : noop;
+  }, [onFileDialogOpen]);
+  var onFileDialogCancelCb = useMemo(function () {
+    return typeof onFileDialogCancel === 'function' ? onFileDialogCancel : noop;
+  }, [onFileDialogCancel]);
   var rootRef = useRef(null);
   var inputRef = useRef(null);
 
@@ -2224,17 +2403,7 @@ function useDropzone() {
 
   var isFocused = state.isFocused,
       isFileDialogActive = state.isFileDialogActive,
-      draggedFiles = state.draggedFiles; // Fn for opening the file dialog programmatically
-
-  var openFileDialog = useCallback(function () {
-    if (inputRef.current) {
-      dispatch({
-        type: 'openDialog'
-      });
-      inputRef.current.value = null;
-      inputRef.current.click();
-    }
-  }, [dispatch]); // Update file dialog active state when the window is focused on
+      draggedFiles = state.draggedFiles; // Update file dialog active state when the window is focused on
 
   var onWindowFocus = function onWindowFocus() {
     // Execute the timeout only if the file dialog is opened in the browser
@@ -2247,10 +2416,7 @@ function useDropzone() {
             dispatch({
               type: 'closeDialog'
             });
-
-            if (typeof onFileDialogCancel === 'function') {
-              onFileDialogCancel();
-            }
+            onFileDialogCancelCb();
           }
         }
       }, 300);
@@ -2258,49 +2424,15 @@ function useDropzone() {
   };
 
   useEffect(function () {
+    if (useFsAccessApi && canUseFileSystemAccessAPI()) {
+      return function () {};
+    }
+
     window.addEventListener('focus', onWindowFocus, false);
     return function () {
       window.removeEventListener('focus', onWindowFocus, false);
     };
-  }, [inputRef, isFileDialogActive, onFileDialogCancel]); // Cb to open the file dialog when SPACE/ENTER occurs on the dropzone
-
-  var onKeyDownCb = useCallback(function (event) {
-    // Ignore keyboard events bubbling up the DOM tree
-    if (!rootRef.current || !rootRef.current.isEqualNode(event.target)) {
-      return;
-    }
-
-    if (event.keyCode === 32 || event.keyCode === 13) {
-      event.preventDefault();
-      openFileDialog();
-    }
-  }, [rootRef, inputRef]); // Update focus state for the dropzone
-
-  var onFocusCb = useCallback(function () {
-    dispatch({
-      type: 'focus'
-    });
-  }, []);
-  var onBlurCb = useCallback(function () {
-    dispatch({
-      type: 'blur'
-    });
-  }, []); // Cb to open the file dialog when click occurs on the dropzone
-
-  var onClickCb = useCallback(function () {
-    if (noClick) {
-      return;
-    } // In IE11/Edge the file-browser dialog is blocking, therefore, use setTimeout()
-    // to ensure React can handle state changes
-    // See: https://github.com/react-dropzone/react-dropzone/issues/450
-
-
-    if (isIeOrEdge()) {
-      setTimeout(openFileDialog, 0);
-    } else {
-      openFileDialog();
-    }
-  }, [inputRef, noClick]);
+  }, [inputRef, isFileDialogActive, onFileDialogCancelCb, useFsAccessApi]);
   var dragTargetsRef = useRef([]);
 
   var onDocumentDrop = function onDocumentDrop(event) {
@@ -2403,6 +2535,69 @@ function useDropzone() {
       onDragLeave(event);
     }
   }, [rootRef, onDragLeave, noDragEventsBubbling]);
+  var setFiles = useCallback(function (files, event) {
+    var acceptedFiles = [];
+    var fileRejections = [];
+    files.forEach(function (file) {
+      var _fileAccepted = fileAccepted(file, accept),
+          _fileAccepted2 = _slicedToArray(_fileAccepted, 2),
+          accepted = _fileAccepted2[0],
+          acceptError = _fileAccepted2[1];
+
+      var _fileMatchSize = fileMatchSize(file, minSize, maxSize),
+          _fileMatchSize2 = _slicedToArray(_fileMatchSize, 2),
+          sizeMatch = _fileMatchSize2[0],
+          sizeError = _fileMatchSize2[1];
+
+      var customErrors = validator ? validator(file) : null;
+
+      if (accepted && sizeMatch && !customErrors) {
+        acceptedFiles.push(file);
+      } else {
+        var errors = [acceptError, sizeError];
+
+        if (customErrors) {
+          errors = errors.concat(customErrors);
+        }
+
+        fileRejections.push({
+          file: file,
+          errors: errors.filter(function (e) {
+            return e;
+          })
+        });
+      }
+    });
+
+    if (!multiple && acceptedFiles.length > 1 || multiple && maxFiles >= 1 && acceptedFiles.length > maxFiles) {
+      // Reject everything and empty accepted files
+      acceptedFiles.forEach(function (file) {
+        fileRejections.push({
+          file: file,
+          errors: [TOO_MANY_FILES_REJECTION]
+        });
+      });
+      acceptedFiles.splice(0);
+    }
+
+    dispatch({
+      acceptedFiles: acceptedFiles,
+      fileRejections: fileRejections,
+      type: 'setFiles'
+    });
+
+    if (onDrop) {
+      onDrop(acceptedFiles, fileRejections, event);
+    }
+
+    if (fileRejections.length > 0 && onDropRejected) {
+      onDropRejected(fileRejections, event);
+    }
+
+    if (acceptedFiles.length > 0 && onDropAccepted) {
+      onDropAccepted(acceptedFiles, event);
+    }
+  }, [dispatch, multiple, accept, minSize, maxSize, maxFiles, onDrop, onDropAccepted, onDropRejected, validator]);
   var onDropCb = useCallback(function (event) {
     event.preventDefault(); // Persist here because we need the event later after getFilesFromEvent() is done
 
@@ -2416,74 +2611,87 @@ function useDropzone() {
           return;
         }
 
-        var acceptedFiles = [];
-        var fileRejections = [];
-        files.forEach(function (file) {
-          var _fileAccepted = fileAccepted(file, accept),
-              _fileAccepted2 = _slicedToArray(_fileAccepted, 2),
-              accepted = _fileAccepted2[0],
-              acceptError = _fileAccepted2[1];
-
-          var _fileMatchSize = fileMatchSize(file, minSize, maxSize),
-              _fileMatchSize2 = _slicedToArray(_fileMatchSize, 2),
-              sizeMatch = _fileMatchSize2[0],
-              sizeError = _fileMatchSize2[1];
-
-          var customErrors = validator ? validator(file) : null;
-
-          if (accepted && sizeMatch && !customErrors) {
-            acceptedFiles.push(file);
-          } else {
-            var errors = [acceptError, sizeError];
-
-            if (customErrors) {
-              errors = errors.concat(customErrors);
-            }
-
-            fileRejections.push({
-              file: file,
-              errors: errors.filter(function (e) {
-                return e;
-              })
-            });
-          }
-        });
-
-        if (!multiple && acceptedFiles.length > 1 || multiple && maxFiles >= 1 && acceptedFiles.length > maxFiles) {
-          // Reject everything and empty accepted files
-          acceptedFiles.forEach(function (file) {
-            fileRejections.push({
-              file: file,
-              errors: [TOO_MANY_FILES_REJECTION]
-            });
-          });
-          acceptedFiles.splice(0);
-        }
-
-        dispatch({
-          acceptedFiles: acceptedFiles,
-          fileRejections: fileRejections,
-          type: 'setFiles'
-        });
-
-        if (onDrop) {
-          onDrop(acceptedFiles, fileRejections, event);
-        }
-
-        if (fileRejections.length > 0 && onDropRejected) {
-          onDropRejected(fileRejections, event);
-        }
-
-        if (acceptedFiles.length > 0 && onDropAccepted) {
-          onDropAccepted(acceptedFiles, event);
-        }
+        setFiles(files, event);
       });
     }
 
     dispatch({
       type: 'reset'
     });
-  }, [multiple, accept, minSize, maxSize, maxFiles, getFilesFromEvent, onDrop, onDropAccepted, onDropRejected, noDragEventsBubbling, validator]);
+  }, [getFilesFromEvent, setFiles, noDragEventsBubbling]); // Fn for opening the file dialog programmatically
+
+  var openFileDialog = useCallback(function () {
+    if (useFsAccessApi && canUseFileSystemAccessAPI()) {
+      dispatch({
+        type: 'openDialog'
+      });
+      onFileDialogOpenCb(); // https://developer.mozilla.org/en-US/docs/Web/API/window/showOpenFilePicker
+
+      var opts = {
+        multiple: multiple,
+        types: filePickerOptionsTypes(accept)
+      };
+      window.showOpenFilePicker(opts).then(function (handles) {
+        return getFilesFromEvent(handles);
+      }).then(function (files) {
+        return setFiles(files, null);
+      }).catch(function (e) {
+        return onFileDialogCancelCb(e);
+      }).finally(function () {
+        return dispatch({
+          type: 'closeDialog'
+        });
+      });
+      return;
+    }
+
+    if (inputRef.current) {
+      dispatch({
+        type: 'openDialog'
+      });
+      onFileDialogOpenCb();
+      inputRef.current.value = null;
+      inputRef.current.click();
+    }
+  }, [dispatch, onFileDialogOpenCb, onFileDialogCancelCb, useFsAccessApi, setFiles, accept, multiple]); // Cb to open the file dialog when SPACE/ENTER occurs on the dropzone
+
+  var onKeyDownCb = useCallback(function (event) {
+    // Ignore keyboard events bubbling up the DOM tree
+    if (!rootRef.current || !rootRef.current.isEqualNode(event.target)) {
+      return;
+    }
+
+    if (event.keyCode === 32 || event.keyCode === 13) {
+      event.preventDefault();
+      openFileDialog();
+    }
+  }, [rootRef, inputRef, openFileDialog]); // Update focus state for the dropzone
+
+  var onFocusCb = useCallback(function () {
+    dispatch({
+      type: 'focus'
+    });
+  }, []);
+  var onBlurCb = useCallback(function () {
+    dispatch({
+      type: 'blur'
+    });
+  }, []); // Cb to open the file dialog when click occurs on the dropzone
+
+  var onClickCb = useCallback(function () {
+    if (noClick) {
+      return;
+    } // In IE11/Edge the file-browser dialog is blocking, therefore, use setTimeout()
+    // to ensure React can handle state changes
+    // See: https://github.com/react-dropzone/react-dropzone/issues/450
+
+
+    if (isIeOrEdge()) {
+      setTimeout(openFileDialog, 0);
+    } else {
+      openFileDialog();
+    }
+  }, [inputRef, noClick, openFileDialog]);
 
   var composeHandler = function composeHandler(fn) {
     return disabled ? null : fn;
@@ -2508,6 +2716,7 @@ function useDropzone() {
       var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
           _ref2$refKey = _ref2.refKey,
           refKey = _ref2$refKey === void 0 ? 'ref' : _ref2$refKey,
+          role = _ref2.role,
           onKeyDown = _ref2.onKeyDown,
           onFocus = _ref2.onFocus,
           onBlur = _ref2.onBlur,
@@ -2526,7 +2735,8 @@ function useDropzone() {
         onDragEnter: composeDragHandler(composeEventHandlers(onDragEnter, onDragEnterCb)),
         onDragOver: composeDragHandler(composeEventHandlers(onDragOver, onDragOverCb)),
         onDragLeave: composeDragHandler(composeEventHandlers(onDragLeave, onDragLeaveCb)),
-        onDrop: composeDragHandler(composeEventHandlers(onDrop, onDropCb))
+        onDrop: composeDragHandler(composeEventHandlers(onDrop, onDropCb)),
+        role: typeof role === 'string' && role !== '' ? role : 'button'
       }, refKey, rootRef), !disabled && !noKeyboard ? {
         tabIndex: 0
       } : {}), rest);
@@ -2596,7 +2806,7 @@ function reducer(state, action) {
       });
 
     case 'openDialog':
-      return _objectSpread$b(_objectSpread$b({}, state), {}, {
+      return _objectSpread$b(_objectSpread$b({}, initialState), {}, {
         isFileDialogActive: true
       });
 
@@ -2627,6 +2837,8 @@ function reducer(state, action) {
       return state;
   }
 }
+
+function noop() {}
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -2776,7 +2988,7 @@ function EditableImage(props) {
     var htmlProps = strip(props, ['elem', 'get', 'set']);
     var onLoad = useCallback(function (file) {
         var b64 = Buffer.from(file.buffer).toString('base64');
-        set("data:" + file.mime + ";base64," + b64);
+        set("data:".concat(file.mime, ";base64,").concat(b64));
     }, [set]);
     checkForProp.forEach(function (prop) {
         if (prop in props) {
@@ -2785,8 +2997,8 @@ function EditableImage(props) {
         }
     });
     htmlProps['src'] = get();
-    var node = htmlProps['src'] ? createElement(elem, htmlProps) : (jsx("div", __assign$1({ className: "Henshu__EditableImage empty " + className }, { children: jsx("em", { children: "..." }, void 0) }), void 0));
-    return !editing ? node : (jsxs("div", __assign$1({ className: "Henshu__EditableImage " + className }, { children: [node, jsx(ReactDragDrop, { onLoad: onLoad }, void 0), htmlProps['src'] && jsx("button", __assign$1({ onClick: function () { return set(''); } }, { children: "Remove" }), void 0)] }), void 0));
+    var node = htmlProps['src'] ? createElement(elem, htmlProps) : (jsx("div", __assign$1({ className: "Henshu__EditableImage empty ".concat(className) }, { children: jsx("em", { children: "..." }, void 0) }), void 0));
+    return !editing ? node : (jsxs("div", __assign$1({ className: "Henshu__EditableImage ".concat(className) }, { children: [node, jsx(ReactDragDrop, { onLoad: onLoad }, void 0), htmlProps['src'] && jsx("button", __assign$1({ onClick: function () { return set(''); } }, { children: "Remove" }), void 0)] }), void 0));
 }
 var ImageElements = [
     'img'
@@ -2825,7 +3037,7 @@ function isPlainObject(o) {
   return true;
 }
 
-function n$2(n){for(var t=arguments.length,r=Array(t>1?t-1:0),e=1;e<t;e++)r[e-1]=arguments[e];if("production"!==process.env.NODE_ENV){var i=Y$1[n],o=i?"function"==typeof i?i.apply(null,r):i:"unknown error nr: "+n;throw Error("[Immer] "+o)}throw Error("[Immer] minified error nr: "+n+(r.length?" "+r.map((function(n){return "'"+n+"'"})).join(","):"")+". Find the full error at: https://bit.ly/3cXEKWf")}function t$1(n){return !!n&&!!n[Q]}function r$2(n){return !!n&&(function(n){if(!n||"object"!=typeof n)return !1;var t=Object.getPrototypeOf(n);if(null===t)return !0;var r=Object.hasOwnProperty.call(t,"constructor")&&t.constructor;return r===Object||"function"==typeof r&&Function.toString.call(r)===Z$1}(n)||Array.isArray(n)||!!n[L]||!!n.constructor[L]||s(n)||v(n))}function i(n,t,r){void 0===r&&(r=!1),0===o(n)?(r?Object.keys:nn)(n).forEach((function(e){r&&"symbol"==typeof e||t(e,n[e],n);})):n.forEach((function(r,e){return t(e,r,n)}));}function o(n){var t=n[Q];return t?t.i>3?t.i-4:t.i:Array.isArray(n)?1:s(n)?2:v(n)?3:0}function u(n,t){return 2===o(n)?n.has(t):Object.prototype.hasOwnProperty.call(n,t)}function a(n,t){return 2===o(n)?n.get(t):n[t]}function f$1(n,t,r){var e=o(n);2===e?n.set(t,r):3===e?(n.delete(t),n.add(r)):n[t]=r;}function c(n,t){return n===t?0!==n||1/n==1/t:n!=n&&t!=t}function s(n){return X$1&&n instanceof Map}function v(n){return q&&n instanceof Set}function p(n){return n.o||n.t}function l(n){if(Array.isArray(n))return Array.prototype.slice.call(n);var t=tn(n);delete t[Q];for(var r=nn(t),e=0;e<r.length;e++){var i=r[e],o=t[i];!1===o.writable&&(o.writable=!0,o.configurable=!0),(o.get||o.set)&&(t[i]={configurable:!0,writable:!0,enumerable:o.enumerable,value:n[i]});}return Object.create(Object.getPrototypeOf(n),t)}function d(n,e){return void 0===e&&(e=!1),y$1(n)||t$1(n)||!r$2(n)?n:(o(n)>1&&(n.set=n.add=n.clear=n.delete=h),Object.freeze(n),e&&i(n,(function(n,t){return d(t,!0)}),!0),n)}function h(){n$2(2);}function y$1(n){return null==n||"object"!=typeof n||Object.isFrozen(n)}function b$1(t){var r=rn[t];return r||n$2(18,t),r}function _(){return "production"===process.env.NODE_ENV||U$1||n$2(0),U$1}function j(n,t){t&&(b$1("Patches"),n.u=[],n.s=[],n.v=t);}function O$1(n){g(n),n.p.forEach(S$1),n.p=null;}function g(n){n===U$1&&(U$1=n.l);}function w(n){return U$1={p:[],l:U$1,h:n,m:!0,_:0}}function S$1(n){var t=n[Q];0===t.i||1===t.i?t.j():t.O=!0;}function P$1(t,e){e._=e.p.length;var i=e.p[0],o=void 0!==t&&t!==i;return e.h.g||b$1("ES5").S(e,t,o),o?(i[Q].P&&(O$1(e),n$2(4)),r$2(t)&&(t=M$1(e,t),e.l||x(e,t)),e.u&&b$1("Patches").M(i[Q],t,e.u,e.s)):t=M$1(e,i,[]),O$1(e),e.u&&e.v(e.u,e.s),t!==H$1?t:void 0}function M$1(n,t,r){if(y$1(t))return t;var e=t[Q];if(!e)return i(t,(function(i,o){return A(n,e,t,i,o,r)}),!0),t;if(e.A!==n)return t;if(!e.P)return x(n,e.t,!0),e.t;if(!e.I){e.I=!0,e.A._--;var o=4===e.i||5===e.i?e.o=l(e.k):e.o;i(3===e.i?new Set(o):o,(function(t,i){return A(n,e,o,t,i,r)})),x(n,o,!1),r&&n.u&&b$1("Patches").R(e,r,n.u,n.s);}return e.o}function A(e,i,o,a,c,s){if("production"!==process.env.NODE_ENV&&c===o&&n$2(5),t$1(c)){var v=M$1(e,c,s&&i&&3!==i.i&&!u(i.D,a)?s.concat(a):void 0);if(f$1(o,a,v),!t$1(v))return;e.m=!1;}if(r$2(c)&&!y$1(c)){if(!e.h.F&&e._<1)return;M$1(e,c),i&&i.A.l||x(e,c);}}function x(n,t,r){void 0===r&&(r=!1),n.h.F&&n.m&&d(t,r);}function z(n,t){var r=n[Q];return (r?p(r):n)[t]}function I$1(n,t){if(t in n)for(var r=Object.getPrototypeOf(n);r;){var e=Object.getOwnPropertyDescriptor(r,t);if(e)return e;r=Object.getPrototypeOf(r);}}function k(n){n.P||(n.P=!0,n.l&&k(n.l));}function E$1(n){n.o||(n.o=l(n.t));}function R$1(n,t,r){var e=s(t)?b$1("MapSet").N(t,r):v(t)?b$1("MapSet").T(t,r):n.g?function(n,t){var r=Array.isArray(n),e={i:r?1:0,A:t?t.A:_(),P:!1,I:!1,D:{},l:t,t:n,k:null,o:null,j:null,C:!1},i=e,o=en;r&&(i=[e],o=on);var u=Proxy.revocable(i,o),a=u.revoke,f=u.proxy;return e.k=f,e.j=a,f}(t,r):b$1("ES5").J(t,r);return (r?r.A:_()).p.push(e),e}function D$1(e){return t$1(e)||n$2(22,e),function n(t){if(!r$2(t))return t;var e,u=t[Q],c=o(t);if(u){if(!u.P&&(u.i<4||!b$1("ES5").K(u)))return u.t;u.I=!0,e=F$1(t,c),u.I=!1;}else e=F$1(t,c);return i(e,(function(t,r){u&&a(u.t,t)===r||f$1(e,t,n(r));})),3===c?new Set(e):e}(e)}function F$1(n,t){switch(t){case 2:return new Map(n);case 3:return Array.from(n)}return l(n)}var G$1,U$1,W$1="undefined"!=typeof Symbol&&"symbol"==typeof Symbol("x"),X$1="undefined"!=typeof Map,q="undefined"!=typeof Set,B$1="undefined"!=typeof Proxy&&void 0!==Proxy.revocable&&"undefined"!=typeof Reflect,H$1=W$1?Symbol.for("immer-nothing"):((G$1={})["immer-nothing"]=!0,G$1),L=W$1?Symbol.for("immer-draftable"):"__$immer_draftable",Q=W$1?Symbol.for("immer-state"):"__$immer_state",Y$1={0:"Illegal state",1:"Immer drafts cannot have computed properties",2:"This object has been frozen and should not be mutated",3:function(n){return "Cannot use a proxy that has been revoked. Did you pass an object from inside an immer function to an async process? "+n},4:"An immer producer returned a new value *and* modified its draft. Either return a new value *or* modify the draft.",5:"Immer forbids circular references",6:"The first or second argument to `produce` must be a function",7:"The third argument to `produce` must be a function or undefined",8:"First argument to `createDraft` must be a plain object, an array, or an immerable object",9:"First argument to `finishDraft` must be a draft returned by `createDraft`",10:"The given draft is already finalized",11:"Object.defineProperty() cannot be used on an Immer draft",12:"Object.setPrototypeOf() cannot be used on an Immer draft",13:"Immer only supports deleting array indices",14:"Immer only supports setting array indices and the 'length' property",15:function(n){return "Cannot apply patch, path doesn't resolve: "+n},16:'Sets cannot have "replace" patches.',17:function(n){return "Unsupported patch operation: "+n},18:function(n){return "The plugin for '"+n+"' has not been loaded into Immer. To enable the plugin, import and call `enable"+n+"()` when initializing your application."},20:"Cannot use proxies if Proxy, Proxy.revocable or Reflect are not available",21:function(n){return "produce can only be called on things that are draftable: plain objects, arrays, Map, Set or classes that are marked with '[immerable]: true'. Got '"+n+"'"},22:function(n){return "'current' expects a draft, got: "+n},23:function(n){return "'original' expects a draft, got: "+n},24:"Patching reserved attributes like __proto__, prototype and constructor is not allowed"},Z$1=""+Object.prototype.constructor,nn="undefined"!=typeof Reflect&&Reflect.ownKeys?Reflect.ownKeys:void 0!==Object.getOwnPropertySymbols?function(n){return Object.getOwnPropertyNames(n).concat(Object.getOwnPropertySymbols(n))}:Object.getOwnPropertyNames,tn=Object.getOwnPropertyDescriptors||function(n){var t={};return nn(n).forEach((function(r){t[r]=Object.getOwnPropertyDescriptor(n,r);})),t},rn={},en={get:function(n,t){if(t===Q)return n;var e=p(n);if(!u(e,t))return function(n,t,r){var e,i=I$1(t,r);return i?"value"in i?i.value:null===(e=i.get)||void 0===e?void 0:e.call(n.k):void 0}(n,e,t);var i=e[t];return n.I||!r$2(i)?i:i===z(n.t,t)?(E$1(n),n.o[t]=R$1(n.A.h,i,n)):i},has:function(n,t){return t in p(n)},ownKeys:function(n){return Reflect.ownKeys(p(n))},set:function(n,t,r){var e=I$1(p(n),t);if(null==e?void 0:e.set)return e.set.call(n.k,r),!0;if(!n.P){var i=z(p(n),t),o=null==i?void 0:i[Q];if(o&&o.t===r)return n.o[t]=r,n.D[t]=!1,!0;if(c(r,i)&&(void 0!==r||u(n.t,t)))return !0;E$1(n),k(n);}return n.o[t]===r&&"number"!=typeof r&&(void 0!==r||t in n.o)||(n.o[t]=r,n.D[t]=!0,!0)},deleteProperty:function(n,t){return void 0!==z(n.t,t)||t in n.t?(n.D[t]=!1,E$1(n),k(n)):delete n.D[t],n.o&&delete n.o[t],!0},getOwnPropertyDescriptor:function(n,t){var r=p(n),e=Reflect.getOwnPropertyDescriptor(r,t);return e?{writable:!0,configurable:1!==n.i||"length"!==t,enumerable:e.enumerable,value:r[t]}:e},defineProperty:function(){n$2(11);},getPrototypeOf:function(n){return Object.getPrototypeOf(n.t)},setPrototypeOf:function(){n$2(12);}},on={};i(en,(function(n,t){on[n]=function(){return arguments[0]=arguments[0][0],t.apply(this,arguments)};})),on.deleteProperty=function(t,r){return "production"!==process.env.NODE_ENV&&isNaN(parseInt(r))&&n$2(13),en.deleteProperty.call(this,t[0],r)},on.set=function(t,r,e){return "production"!==process.env.NODE_ENV&&"length"!==r&&isNaN(parseInt(r))&&n$2(14),en.set.call(this,t[0],r,e,t[0])};var un=function(){function e(t){var e=this;this.g=B$1,this.F=!0,this.produce=function(t,i,o){if("function"==typeof t&&"function"!=typeof i){var u=i;i=t;var a=e;return function(n){var t=this;void 0===n&&(n=u);for(var r=arguments.length,e=Array(r>1?r-1:0),o=1;o<r;o++)e[o-1]=arguments[o];return a.produce(n,(function(n){var r;return (r=i).call.apply(r,[t,n].concat(e))}))}}var f;if("function"!=typeof i&&n$2(6),void 0!==o&&"function"!=typeof o&&n$2(7),r$2(t)){var c=w(e),s=R$1(e,t,void 0),v=!0;try{f=i(s),v=!1;}finally{v?O$1(c):g(c);}return "undefined"!=typeof Promise&&f instanceof Promise?f.then((function(n){return j(c,o),P$1(n,c)}),(function(n){throw O$1(c),n})):(j(c,o),P$1(f,c))}if(!t||"object"!=typeof t){if((f=i(t))===H$1)return;return void 0===f&&(f=t),e.F&&d(f,!0),f}n$2(21,t);},this.produceWithPatches=function(n,t){return "function"==typeof n?function(t){for(var r=arguments.length,i=Array(r>1?r-1:0),o=1;o<r;o++)i[o-1]=arguments[o];return e.produceWithPatches(t,(function(t){return n.apply(void 0,[t].concat(i))}))}:[e.produce(n,t,(function(n,t){r=n,i=t;})),r,i];var r,i;},"boolean"==typeof(null==t?void 0:t.useProxies)&&this.setUseProxies(t.useProxies),"boolean"==typeof(null==t?void 0:t.autoFreeze)&&this.setAutoFreeze(t.autoFreeze);}var i=e.prototype;return i.createDraft=function(e){r$2(e)||n$2(8),t$1(e)&&(e=D$1(e));var i=w(this),o=R$1(this,e,void 0);return o[Q].C=!0,g(i),o},i.finishDraft=function(t,r){var e=t&&t[Q];"production"!==process.env.NODE_ENV&&(e&&e.C||n$2(9),e.I&&n$2(10));var i=e.A;return j(i,r),P$1(void 0,i)},i.setAutoFreeze=function(n){this.F=n;},i.setUseProxies=function(t){t&&!B$1&&n$2(20),this.g=t;},i.applyPatches=function(n,r){var e;for(e=r.length-1;e>=0;e--){var i=r[e];if(0===i.path.length&&"replace"===i.op){n=i.value;break}}var o=b$1("Patches").$;return t$1(n)?o(n,r):this.produce(n,(function(n){return o(n,r.slice(e+1))}))},e}(),an=new un,fn=an.produce;an.produceWithPatches.bind(an);an.setAutoFreeze.bind(an);an.setUseProxies.bind(an);an.applyPatches.bind(an);var ln=an.createDraft.bind(an),dn=an.finishDraft.bind(an);
+function n$2(n){for(var r=arguments.length,t=Array(r>1?r-1:0),e=1;e<r;e++)t[e-1]=arguments[e];if("production"!==process.env.NODE_ENV){var i=Y$1[n],o=i?"function"==typeof i?i.apply(null,t):i:"unknown error nr: "+n;throw Error("[Immer] "+o)}throw Error("[Immer] minified error nr: "+n+(t.length?" "+t.map((function(n){return "'"+n+"'"})).join(","):"")+". Find the full error at: https://bit.ly/3cXEKWf")}function r$2(n){return !!n&&!!n[Q]}function t$1(n){return !!n&&(function(n){if(!n||"object"!=typeof n)return !1;var r=Object.getPrototypeOf(n);if(null===r)return !0;var t=Object.hasOwnProperty.call(r,"constructor")&&r.constructor;return t===Object||"function"==typeof t&&Function.toString.call(t)===Z$1}(n)||Array.isArray(n)||!!n[L]||!!n.constructor[L]||s(n)||v(n))}function i(n,r,t){void 0===t&&(t=!1),0===o(n)?(t?Object.keys:nn)(n).forEach((function(e){t&&"symbol"==typeof e||r(e,n[e],n);})):n.forEach((function(t,e){return r(e,t,n)}));}function o(n){var r=n[Q];return r?r.i>3?r.i-4:r.i:Array.isArray(n)?1:s(n)?2:v(n)?3:0}function u(n,r){return 2===o(n)?n.has(r):Object.prototype.hasOwnProperty.call(n,r)}function a(n,r){return 2===o(n)?n.get(r):n[r]}function f$1(n,r,t){var e=o(n);2===e?n.set(r,t):3===e?(n.delete(r),n.add(t)):n[r]=t;}function c(n,r){return n===r?0!==n||1/n==1/r:n!=n&&r!=r}function s(n){return X$1&&n instanceof Map}function v(n){return q&&n instanceof Set}function p(n){return n.o||n.t}function l(n){if(Array.isArray(n))return Array.prototype.slice.call(n);var r=rn(n);delete r[Q];for(var t=nn(r),e=0;e<t.length;e++){var i=t[e],o=r[i];!1===o.writable&&(o.writable=!0,o.configurable=!0),(o.get||o.set)&&(r[i]={configurable:!0,writable:!0,enumerable:o.enumerable,value:n[i]});}return Object.create(Object.getPrototypeOf(n),r)}function d(n,e){return void 0===e&&(e=!1),y$1(n)||r$2(n)||!t$1(n)?n:(o(n)>1&&(n.set=n.add=n.clear=n.delete=h),Object.freeze(n),e&&i(n,(function(n,r){return d(r,!0)}),!0),n)}function h(){n$2(2);}function y$1(n){return null==n||"object"!=typeof n||Object.isFrozen(n)}function b$1(r){var t=tn[r];return t||n$2(18,r),t}function _(){return "production"===process.env.NODE_ENV||U$1||n$2(0),U$1}function j(n,r){r&&(b$1("Patches"),n.u=[],n.s=[],n.v=r);}function O$1(n){g(n),n.p.forEach(S$1),n.p=null;}function g(n){n===U$1&&(U$1=n.l);}function w(n){return U$1={p:[],l:U$1,h:n,m:!0,_:0}}function S$1(n){var r=n[Q];0===r.i||1===r.i?r.j():r.O=!0;}function P$1(r,e){e._=e.p.length;var i=e.p[0],o=void 0!==r&&r!==i;return e.h.g||b$1("ES5").S(e,r,o),o?(i[Q].P&&(O$1(e),n$2(4)),t$1(r)&&(r=M$1(e,r),e.l||x(e,r)),e.u&&b$1("Patches").M(i[Q].t,r,e.u,e.s)):r=M$1(e,i,[]),O$1(e),e.u&&e.v(e.u,e.s),r!==H$1?r:void 0}function M$1(n,r,t){if(y$1(r))return r;var e=r[Q];if(!e)return i(r,(function(i,o){return A(n,e,r,i,o,t)}),!0),r;if(e.A!==n)return r;if(!e.P)return x(n,e.t,!0),e.t;if(!e.I){e.I=!0,e.A._--;var o=4===e.i||5===e.i?e.o=l(e.k):e.o;i(3===e.i?new Set(o):o,(function(r,i){return A(n,e,o,r,i,t)})),x(n,o,!1),t&&n.u&&b$1("Patches").R(e,t,n.u,n.s);}return e.o}function A(e,i,o,a,c,s){if("production"!==process.env.NODE_ENV&&c===o&&n$2(5),r$2(c)){var v=M$1(e,c,s&&i&&3!==i.i&&!u(i.D,a)?s.concat(a):void 0);if(f$1(o,a,v),!r$2(v))return;e.m=!1;}if(t$1(c)&&!y$1(c)){if(!e.h.F&&e._<1)return;M$1(e,c),i&&i.A.l||x(e,c);}}function x(n,r,t){void 0===t&&(t=!1),n.h.F&&n.m&&d(r,t);}function z(n,r){var t=n[Q];return (t?p(t):n)[r]}function I$1(n,r){if(r in n)for(var t=Object.getPrototypeOf(n);t;){var e=Object.getOwnPropertyDescriptor(t,r);if(e)return e;t=Object.getPrototypeOf(t);}}function k(n){n.P||(n.P=!0,n.l&&k(n.l));}function E$1(n){n.o||(n.o=l(n.t));}function R$1(n,r,t){var e=s(r)?b$1("MapSet").N(r,t):v(r)?b$1("MapSet").T(r,t):n.g?function(n,r){var t=Array.isArray(n),e={i:t?1:0,A:r?r.A:_(),P:!1,I:!1,D:{},l:r,t:n,k:null,o:null,j:null,C:!1},i=e,o=en;t&&(i=[e],o=on);var u=Proxy.revocable(i,o),a=u.revoke,f=u.proxy;return e.k=f,e.j=a,f}(r,t):b$1("ES5").J(r,t);return (t?t.A:_()).p.push(e),e}function D$1(e){return r$2(e)||n$2(22,e),function n(r){if(!t$1(r))return r;var e,u=r[Q],c=o(r);if(u){if(!u.P&&(u.i<4||!b$1("ES5").K(u)))return u.t;u.I=!0,e=F$1(r,c),u.I=!1;}else e=F$1(r,c);return i(e,(function(r,t){u&&a(u.t,r)===t||f$1(e,r,n(t));})),3===c?new Set(e):e}(e)}function F$1(n,r){switch(r){case 2:return new Map(n);case 3:return Array.from(n)}return l(n)}var G$1,U$1,W$1="undefined"!=typeof Symbol&&"symbol"==typeof Symbol("x"),X$1="undefined"!=typeof Map,q="undefined"!=typeof Set,B$1="undefined"!=typeof Proxy&&void 0!==Proxy.revocable&&"undefined"!=typeof Reflect,H$1=W$1?Symbol.for("immer-nothing"):((G$1={})["immer-nothing"]=!0,G$1),L=W$1?Symbol.for("immer-draftable"):"__$immer_draftable",Q=W$1?Symbol.for("immer-state"):"__$immer_state",Y$1={0:"Illegal state",1:"Immer drafts cannot have computed properties",2:"This object has been frozen and should not be mutated",3:function(n){return "Cannot use a proxy that has been revoked. Did you pass an object from inside an immer function to an async process? "+n},4:"An immer producer returned a new value *and* modified its draft. Either return a new value *or* modify the draft.",5:"Immer forbids circular references",6:"The first or second argument to `produce` must be a function",7:"The third argument to `produce` must be a function or undefined",8:"First argument to `createDraft` must be a plain object, an array, or an immerable object",9:"First argument to `finishDraft` must be a draft returned by `createDraft`",10:"The given draft is already finalized",11:"Object.defineProperty() cannot be used on an Immer draft",12:"Object.setPrototypeOf() cannot be used on an Immer draft",13:"Immer only supports deleting array indices",14:"Immer only supports setting array indices and the 'length' property",15:function(n){return "Cannot apply patch, path doesn't resolve: "+n},16:'Sets cannot have "replace" patches.',17:function(n){return "Unsupported patch operation: "+n},18:function(n){return "The plugin for '"+n+"' has not been loaded into Immer. To enable the plugin, import and call `enable"+n+"()` when initializing your application."},20:"Cannot use proxies if Proxy, Proxy.revocable or Reflect are not available",21:function(n){return "produce can only be called on things that are draftable: plain objects, arrays, Map, Set or classes that are marked with '[immerable]: true'. Got '"+n+"'"},22:function(n){return "'current' expects a draft, got: "+n},23:function(n){return "'original' expects a draft, got: "+n},24:"Patching reserved attributes like __proto__, prototype and constructor is not allowed"},Z$1=""+Object.prototype.constructor,nn="undefined"!=typeof Reflect&&Reflect.ownKeys?Reflect.ownKeys:void 0!==Object.getOwnPropertySymbols?function(n){return Object.getOwnPropertyNames(n).concat(Object.getOwnPropertySymbols(n))}:Object.getOwnPropertyNames,rn=Object.getOwnPropertyDescriptors||function(n){var r={};return nn(n).forEach((function(t){r[t]=Object.getOwnPropertyDescriptor(n,t);})),r},tn={},en={get:function(n,r){if(r===Q)return n;var e=p(n);if(!u(e,r))return function(n,r,t){var e,i=I$1(r,t);return i?"value"in i?i.value:null===(e=i.get)||void 0===e?void 0:e.call(n.k):void 0}(n,e,r);var i=e[r];return n.I||!t$1(i)?i:i===z(n.t,r)?(E$1(n),n.o[r]=R$1(n.A.h,i,n)):i},has:function(n,r){return r in p(n)},ownKeys:function(n){return Reflect.ownKeys(p(n))},set:function(n,r,t){var e=I$1(p(n),r);if(null==e?void 0:e.set)return e.set.call(n.k,t),!0;if(!n.P){var i=z(p(n),r),o=null==i?void 0:i[Q];if(o&&o.t===t)return n.o[r]=t,n.D[r]=!1,!0;if(c(t,i)&&(void 0!==t||u(n.t,r)))return !0;E$1(n),k(n);}return n.o[r]===t&&"number"!=typeof t&&(void 0!==t||r in n.o)||(n.o[r]=t,n.D[r]=!0,!0)},deleteProperty:function(n,r){return void 0!==z(n.t,r)||r in n.t?(n.D[r]=!1,E$1(n),k(n)):delete n.D[r],n.o&&delete n.o[r],!0},getOwnPropertyDescriptor:function(n,r){var t=p(n),e=Reflect.getOwnPropertyDescriptor(t,r);return e?{writable:!0,configurable:1!==n.i||"length"!==r,enumerable:e.enumerable,value:t[r]}:e},defineProperty:function(){n$2(11);},getPrototypeOf:function(n){return Object.getPrototypeOf(n.t)},setPrototypeOf:function(){n$2(12);}},on={};i(en,(function(n,r){on[n]=function(){return arguments[0]=arguments[0][0],r.apply(this,arguments)};})),on.deleteProperty=function(r,t){return "production"!==process.env.NODE_ENV&&isNaN(parseInt(t))&&n$2(13),on.set.call(this,r,t,void 0)},on.set=function(r,t,e){return "production"!==process.env.NODE_ENV&&"length"!==t&&isNaN(parseInt(t))&&n$2(14),en.set.call(this,r[0],t,e,r[0])};var un=function(){function e(r){var e=this;this.g=B$1,this.F=!0,this.produce=function(r,i,o){if("function"==typeof r&&"function"!=typeof i){var u=i;i=r;var a=e;return function(n){var r=this;void 0===n&&(n=u);for(var t=arguments.length,e=Array(t>1?t-1:0),o=1;o<t;o++)e[o-1]=arguments[o];return a.produce(n,(function(n){var t;return (t=i).call.apply(t,[r,n].concat(e))}))}}var f;if("function"!=typeof i&&n$2(6),void 0!==o&&"function"!=typeof o&&n$2(7),t$1(r)){var c=w(e),s=R$1(e,r,void 0),v=!0;try{f=i(s),v=!1;}finally{v?O$1(c):g(c);}return "undefined"!=typeof Promise&&f instanceof Promise?f.then((function(n){return j(c,o),P$1(n,c)}),(function(n){throw O$1(c),n})):(j(c,o),P$1(f,c))}if(!r||"object"!=typeof r){if(void 0===(f=i(r))&&(f=r),f===H$1&&(f=void 0),e.F&&d(f,!0),o){var p=[],l=[];b$1("Patches").M(r,f,p,l),o(p,l);}return f}n$2(21,r);},this.produceWithPatches=function(n,r){if("function"==typeof n)return function(r){for(var t=arguments.length,i=Array(t>1?t-1:0),o=1;o<t;o++)i[o-1]=arguments[o];return e.produceWithPatches(r,(function(r){return n.apply(void 0,[r].concat(i))}))};var t,i,o=e.produce(n,r,(function(n,r){t=n,i=r;}));return "undefined"!=typeof Promise&&o instanceof Promise?o.then((function(n){return [n,t,i]})):[o,t,i]},"boolean"==typeof(null==r?void 0:r.useProxies)&&this.setUseProxies(r.useProxies),"boolean"==typeof(null==r?void 0:r.autoFreeze)&&this.setAutoFreeze(r.autoFreeze);}var i=e.prototype;return i.createDraft=function(e){t$1(e)||n$2(8),r$2(e)&&(e=D$1(e));var i=w(this),o=R$1(this,e,void 0);return o[Q].C=!0,g(i),o},i.finishDraft=function(r,t){var e=r&&r[Q];"production"!==process.env.NODE_ENV&&(e&&e.C||n$2(9),e.I&&n$2(10));var i=e.A;return j(i,t),P$1(void 0,i)},i.setAutoFreeze=function(n){this.F=n;},i.setUseProxies=function(r){r&&!B$1&&n$2(20),this.g=r;},i.applyPatches=function(n,t){var e;for(e=t.length-1;e>=0;e--){var i=t[e];if(0===i.path.length&&"replace"===i.op){n=i.value;break}}e>-1&&(t=t.slice(e+1));var o=b$1("Patches").$;return r$2(n)?o(n,t):this.produce(n,(function(n){return o(n,t)}))},e}(),an=new un,fn=an.produce;an.produceWithPatches.bind(an);an.setAutoFreeze.bind(an);an.setUseProxies.bind(an);an.applyPatches.bind(an);var ln=an.createDraft.bind(an),dn=an.finishDraft.bind(an);
 
 function _defineProperty$1(obj, key, value) {
   if (key in obj) {
@@ -7099,7 +7311,7 @@ var GeneralTransforms = {
       editor.children = dn(editor.children);
 
       if (selection) {
-        editor.selection = t$1(selection) ? dn(selection) : selection;
+        editor.selection = r$2(selection) ? dn(selection) : selection;
       } else {
         editor.selection = null;
       }
@@ -9457,13 +9669,13 @@ function getOptions(options) {
 }
 
 function scrollIntoView(target, options) {
-  var targetIsDetached = !target.ownerDocument.documentElement.contains(target);
+  var isTargetAttached = target.isConnected || target.ownerDocument.documentElement.contains(target);
 
   if (isOptionsObject(options) && typeof options.behavior === 'function') {
-    return options.behavior(targetIsDetached ? [] : compute(target, options));
+    return options.behavior(isTargetAttached ? compute(target, options) : []);
   }
 
-  if (targetIsDetached) {
+  if (!isTargetAttached) {
     return;
   }
 

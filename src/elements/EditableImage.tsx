@@ -1,6 +1,6 @@
 import { createElement, useCallback } from 'react';
 // @ts-ignore
-import DragDrop from '@sasaki-dev/react-drag-drop';
+import DragDrop from '@strategies/react-drag-drop';
 
 import { strip } from '../utils';
 import { useHenshu } from '../context';

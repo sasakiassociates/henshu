@@ -1,1 +1,1 @@
-declare module '@sasaki-dev/react-drag-drop';
+declare module '@strategies/react-drag-drop';

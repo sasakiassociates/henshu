@@ -8,13 +8,13 @@ We wanted to build a CMS layer that was low overhead and allowed teams to toggle
 
 ## Install
 ```sh
-yarn add henshu
+yarn add @strategies/henshu
 ```
 
 then
 
 ```js
-import { Henshu, henshu, useHenshu } from 'henshu';
+import { Henshu, henshu, useHenshu } from '@strategies/henshu';
 ```
 
 ## Henshu In Three Layers

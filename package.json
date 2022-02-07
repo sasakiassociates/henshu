@@ -1,5 +1,5 @@
 {
-  "name": "henshu",
+  "name": "@strategies/henshu",
   "version": "1.0.7",
   "description": "React library for editable interfaces",
   "author": "Eric Youngberg <eyoungberg@sasaki.com>",

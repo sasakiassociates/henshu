@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { useMemo, useCallback, useEffect, useState } from 'react';
+import { useMemo, useCallback, useState, useEffect } from 'react';
 import { Editable, withReact, Slate, useSlate } from 'slate-react';
-import { Editor, Node, Transforms, createEditor, Element as SlateElement } from 'slate';
+import { Editor, Transforms, createEditor, Element as SlateElement } from 'slate';
 
 import { useHenshu } from '../context';
 import { HenshuElementProps } from '../henshu';
@@ -9,25 +9,43 @@ import { HenshuElementProps } from '../henshu';
 
 const LIST_TYPES = ['bulleted-list'];
 
-const DEFAULT_VALUE = `[
-    {
-        "type": "paragraph",
-        "children": [{ "text": "" }]
-    }
-]`;
+const p = v => `[{"type":"paragraph","children":[{"text":"${v || ''}"}]}]`;
 
-export default function EditableRichText({ get, set, ...props }: HenshuElementProps) {
+export default function EditableRichText({ current, get, set, ...props }: HenshuElementProps) {
   const { editing } = useHenshu();
   const renderElement = useCallback(props => <Element {...props} />, [])
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
   const editor = useMemo(() => withReact(createEditor()), []);
+    const [value, setValue] = useState(JSON.parse(get() || p()));
+
+    useEffect(() => {
+        const got = get();
+        if (got && JSON.stringify(JSON.parse(got)) !== JSON.stringify(value)) {
+            console.log('setting', props.className, JSON.parse(got));
+            setValue(JSON.parse(got));
+        }
+    }, [value, get]);
+
+    useEffect(() => {
+        if (current) {
+            console.log(current);
+            setValue(JSON.parse(current));
+        }
+    }, [current, setValue]);
+
+    const onSet = useCallback(v => {
+        //console.log(v);
+        //setValue(v);
+
+        set(JSON.stringify(v));
+    }, []);
 
   return (
-      <div {...props} key={get()} className="Henshu__EditableRichText">
+      <div {...props} className={`Henshu__EditableRichText ${props.className ? props.className : ''}`}>
           <Slate 
               editor={editor} 
-              value={JSON.parse(get() || DEFAULT_VALUE)} 
-              onChange={v => set(JSON.stringify(v))}
+              value={value} 
+              onChange={onSet}
           >
             {editing && (
               <div>

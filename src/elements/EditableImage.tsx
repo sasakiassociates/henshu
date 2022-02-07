@@ -1,3 +1,4 @@
+import { Buffer } from 'buffer';
 import { createElement, useCallback } from 'react';
 // @ts-ignore
 import DragDrop from '@strategies/react-drag-drop';

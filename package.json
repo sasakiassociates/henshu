@@ -1,6 +1,6 @@
 {
   "name": "@strategies/henshu",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "React library for editable interfaces",
   "author": "Eric Youngberg <eyoungberg@sasaki.com>",
   "license": "MIT",

@@ -25,7 +25,7 @@ ImageElements.forEach((elem: string) => {
 });
 
 RichTextElements.forEach((elem: string) => {
-    henshu[elem] = (props: HenshuElementProps) => createElement(EditableRichText, { ...props, current: props.get() });
+    henshu[elem] = (props: HenshuElementProps) => createElement(EditableRichText, { ...props });
 });
 
 export default henshu;

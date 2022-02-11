@@ -41679,31 +41679,13 @@ var Editable = IS_ANDROID ? AndroidEditable : Editable$1;
 var LIST_TYPES = ['bulleted-list'];
 var p = function (v) { return "[{\"type\":\"paragraph\",\"children\":[{\"text\":\"".concat(v || '', "\"}]}]"); };
 function EditableRichText(_a) {
-    var current = _a.current, get = _a.get, set = _a.set, props = __rest(_a, ["current", "get", "set"]);
+    var get = _a.get, set = _a.set, props = __rest(_a, ["get", "set"]);
     var editing = useHenshu().editing;
     var renderElement = React.useCallback(function (props) { return jsxRuntime.jsx(Element, __assign$1({}, props), void 0); }, []);
     var renderLeaf = React.useCallback(function (props) { return jsxRuntime.jsx(Leaf, __assign$1({}, props), void 0); }, []);
     var editor = React.useMemo(function () { return withReact(createEditor()); }, []);
-    var _b = React.useState(JSON.parse(get() || p())), value = _b[0], setValue = _b[1];
-    React.useEffect(function () {
-        var got = get();
-        if (got && JSON.stringify(JSON.parse(got)) !== JSON.stringify(value)) {
-            console.log('setting', props.className, JSON.parse(got));
-            setValue(JSON.parse(got));
-        }
-    }, [value, get]);
-    React.useEffect(function () {
-        if (current) {
-            console.log(current);
-            setValue(JSON.parse(current));
-        }
-    }, [current, setValue]);
-    var onSet = React.useCallback(function (v) {
-        //console.log(v);
-        //setValue(v);
-        set(JSON.stringify(v));
-    }, []);
-    return (jsxRuntime.jsx("div", __assign$1({}, props, { className: "Henshu__EditableRichText ".concat(props.className ? props.className : '') }, { children: jsxRuntime.jsxs(Slate, __assign$1({ editor: editor, value: value, onChange: onSet }, { children: [editing && (jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx(MarkButton, { format: "bold", icon: "bold" }, void 0), jsxRuntime.jsx(MarkButton, { format: "italic", icon: "italic" }, void 0), jsxRuntime.jsx(BlockButton, { format: "heading-one", icon: "h1" }, void 0), jsxRuntime.jsx(BlockButton, { format: "heading-two", icon: "h2" }, void 0), jsxRuntime.jsx(BlockButton, { format: "bulleted-list", icon: "list" }, void 0)] }, void 0)), jsxRuntime.jsx(Editable, { renderElement: renderElement, renderLeaf: renderLeaf, placeholder: editing ? 'Edit text here ...' : '...', spellCheck: true, autoFocus: true, readOnly: !editing }, void 0)] }), void 0) }), void 0));
+    return (React.createElement("div", __assign$1({}, props, { key: get(), className: "Henshu__EditableRichText ".concat(props.className ? props.className : '') }),
+        jsxRuntime.jsxs(Slate, __assign$1({ editor: editor, value: JSON.parse(get() || p()), onChange: function (v) { return set(JSON.stringify(v)); } }, { children: [editing && (jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx(MarkButton, { format: "bold", icon: "bold" }, void 0), jsxRuntime.jsx(MarkButton, { format: "italic", icon: "italic" }, void 0), jsxRuntime.jsx(BlockButton, { format: "heading-one", icon: "h1" }, void 0), jsxRuntime.jsx(BlockButton, { format: "heading-two", icon: "h2" }, void 0), jsxRuntime.jsx(BlockButton, { format: "bulleted-list", icon: "list" }, void 0)] }, void 0)), jsxRuntime.jsx(Editable, { renderElement: renderElement, renderLeaf: renderLeaf, placeholder: editing ? 'Edit text here ...' : '...', spellCheck: true, autoFocus: true, readOnly: !editing }, void 0)] }), void 0)));
 }
 var toggleBlock = function (editor, format) {
     var isActive = isBlockActive(editor, format);
@@ -41815,7 +41797,7 @@ ImageElements.forEach(function (elem) {
     henshu[elem] = function (props) { return React.createElement(EditableImage, __assign$1(__assign$1({}, props), { elem: elem })); };
 });
 RichTextElements.forEach(function (elem) {
-    henshu[elem] = function (props) { return React.createElement(EditableRichText, __assign$1(__assign$1({}, props), { current: props.get() })); };
+    henshu[elem] = function (props) { return React.createElement(EditableRichText, __assign$1({}, props)); };
 });
 
 exports.Henshu = Henshu;

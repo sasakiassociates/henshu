@@ -11,62 +11,39 @@ const LIST_TYPES = ['bulleted-list'];
 
 const p = v => `[{"type":"paragraph","children":[{"text":"${v || ''}"}]}]`;
 
-export default function EditableRichText({ current, get, set, ...props }: HenshuElementProps) {
-  const { editing } = useHenshu();
-  const renderElement = useCallback(props => <Element {...props} />, [])
-  const renderLeaf = useCallback(props => <Leaf {...props} />, [])
-  const editor = useMemo(() => withReact(createEditor()), []);
-    const [value, setValue] = useState(JSON.parse(get() || p()));
+export default function EditableRichText({ get, set, ...props }: HenshuElementProps) {
+    const { editing } = useHenshu();
+    const renderElement = useCallback(props => <Element {...props} />, [])
+    const renderLeaf = useCallback(props => <Leaf {...props} />, [])
+    const editor = useMemo(() => withReact(createEditor()), []);
 
-    useEffect(() => {
-        const got = get();
-        if (got && JSON.stringify(JSON.parse(got)) !== JSON.stringify(value)) {
-            console.log('setting', props.className, JSON.parse(got));
-            setValue(JSON.parse(got));
-        }
-    }, [value, get]);
-
-    useEffect(() => {
-        if (current) {
-            console.log(current);
-            setValue(JSON.parse(current));
-        }
-    }, [current, setValue]);
-
-    const onSet = useCallback(v => {
-        //console.log(v);
-        //setValue(v);
-
-        set(JSON.stringify(v));
-    }, []);
-
-  return (
-      <div {...props} className={`Henshu__EditableRichText ${props.className ? props.className : ''}`}>
-          <Slate 
-              editor={editor} 
-              value={value} 
-              onChange={onSet}
-          >
-            {editing && (
-              <div>
-                <MarkButton format="bold" icon="bold" />
-                <MarkButton format="italic" icon="italic" />
-                <BlockButton format="heading-one" icon="h1" />
-                <BlockButton format="heading-two" icon="h2" />
-                <BlockButton format="bulleted-list" icon="list" />
-              </div>
-            )}
-          <Editable
-            renderElement={renderElement}
-            renderLeaf={renderLeaf}
-            placeholder={editing ? 'Edit text here ...' : '...'}
-            spellCheck
-            autoFocus
-            readOnly={!editing}
-          />
-        </Slate>
-    </div>
-  );
+    return (
+        <div {...props} key={get()} className={`Henshu__EditableRichText ${props.className ? props.className : ''}`}>
+            <Slate 
+                editor={editor} 
+                value={JSON.parse(get() || p())} 
+                onChange={v => set(JSON.stringify(v))}
+            >
+                {editing && (
+                  <div>
+                    <MarkButton format="bold" icon="bold" />
+                    <MarkButton format="italic" icon="italic" />
+                    <BlockButton format="heading-one" icon="h1" />
+                    <BlockButton format="heading-two" icon="h2" />
+                    <BlockButton format="bulleted-list" icon="list" />
+                  </div>
+                )}
+            <Editable
+                renderElement={renderElement}
+                renderLeaf={renderLeaf}
+                placeholder={editing ? 'Edit text here ...' : '...'}
+                spellCheck
+                autoFocus
+                readOnly={!editing}
+            />
+            </Slate>
+        </div>
+    );
 };
 
 

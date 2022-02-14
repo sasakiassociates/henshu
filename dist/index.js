@@ -41684,8 +41684,11 @@ function EditableRichText(_a) {
     var renderElement = React.useCallback(function (props) { return jsxRuntime.jsx(Element, __assign$1({}, props), void 0); }, []);
     var renderLeaf = React.useCallback(function (props) { return jsxRuntime.jsx(Leaf, __assign$1({}, props), void 0); }, []);
     var editor = React.useMemo(function () { return withReact(createEditor()); }, []);
-    return (React.createElement("div", __assign$1({}, props, { key: get(), className: "Henshu__EditableRichText ".concat(props.className ? props.className : '') }),
-        jsxRuntime.jsxs(Slate, __assign$1({ editor: editor, value: JSON.parse(get() || p()), onChange: function (v) { return set(JSON.stringify(v)); } }, { children: [editing && (jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx(MarkButton, { format: "bold", icon: "bold" }, void 0), jsxRuntime.jsx(MarkButton, { format: "italic", icon: "italic" }, void 0), jsxRuntime.jsx(BlockButton, { format: "heading-one", icon: "h1" }, void 0), jsxRuntime.jsx(BlockButton, { format: "heading-two", icon: "h2" }, void 0), jsxRuntime.jsx(BlockButton, { format: "bulleted-list", icon: "list" }, void 0)] }, void 0)), jsxRuntime.jsx(Editable, { renderElement: renderElement, renderLeaf: renderLeaf, placeholder: editing ? 'Edit text here ...' : '...', spellCheck: true, autoFocus: true, readOnly: !editing }, void 0)] }), void 0)));
+    React.useEffect(function () {
+        console.log(get());
+        editor.children = JSON.parse(get() || p());
+    }, [get]);
+    return (jsxRuntime.jsx("div", __assign$1({}, props, { className: "Henshu__EditableRichText ".concat(props.className ? props.className : '') }, { children: jsxRuntime.jsxs(Slate, __assign$1({ editor: editor, value: JSON.parse(get() || p()), onChange: function (v) { return set(JSON.stringify(v)); } }, { children: [editing && (jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx(MarkButton, { format: "bold", icon: "bold" }, void 0), jsxRuntime.jsx(MarkButton, { format: "italic", icon: "italic" }, void 0), jsxRuntime.jsx(BlockButton, { format: "heading-one", icon: "h1" }, void 0), jsxRuntime.jsx(BlockButton, { format: "heading-two", icon: "h2" }, void 0), jsxRuntime.jsx(BlockButton, { format: "bulleted-list", icon: "list" }, void 0)] }, void 0)), jsxRuntime.jsx(Editable, { renderElement: renderElement, renderLeaf: renderLeaf, placeholder: editing ? 'Edit text here ...' : '...', spellCheck: true, autoFocus: true, readOnly: !editing }, void 0)] }), void 0) }), void 0));
 }
 var toggleBlock = function (editor, format) {
     var isActive = isBlockActive(editor, format);

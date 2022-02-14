@@ -41676,8 +41676,11 @@ function EditableRichText(_a) {
     var renderElement = useCallback(function (props) { return jsx(Element, __assign$1({}, props), void 0); }, []);
     var renderLeaf = useCallback(function (props) { return jsx(Leaf, __assign$1({}, props), void 0); }, []);
     var editor = useMemo(function () { return withReact(createEditor()); }, []);
-    return (createElement("div", __assign$1({}, props, { key: get(), className: "Henshu__EditableRichText ".concat(props.className ? props.className : '') }),
-        jsxs(Slate, __assign$1({ editor: editor, value: JSON.parse(get() || p()), onChange: function (v) { return set(JSON.stringify(v)); } }, { children: [editing && (jsxs("div", { children: [jsx(MarkButton, { format: "bold", icon: "bold" }, void 0), jsx(MarkButton, { format: "italic", icon: "italic" }, void 0), jsx(BlockButton, { format: "heading-one", icon: "h1" }, void 0), jsx(BlockButton, { format: "heading-two", icon: "h2" }, void 0), jsx(BlockButton, { format: "bulleted-list", icon: "list" }, void 0)] }, void 0)), jsx(Editable, { renderElement: renderElement, renderLeaf: renderLeaf, placeholder: editing ? 'Edit text here ...' : '...', spellCheck: true, autoFocus: true, readOnly: !editing }, void 0)] }), void 0)));
+    useEffect(function () {
+        console.log(get());
+        editor.children = JSON.parse(get() || p());
+    }, [get]);
+    return (jsx("div", __assign$1({}, props, { className: "Henshu__EditableRichText ".concat(props.className ? props.className : '') }, { children: jsxs(Slate, __assign$1({ editor: editor, value: JSON.parse(get() || p()), onChange: function (v) { return set(JSON.stringify(v)); } }, { children: [editing && (jsxs("div", { children: [jsx(MarkButton, { format: "bold", icon: "bold" }, void 0), jsx(MarkButton, { format: "italic", icon: "italic" }, void 0), jsx(BlockButton, { format: "heading-one", icon: "h1" }, void 0), jsx(BlockButton, { format: "heading-two", icon: "h2" }, void 0), jsx(BlockButton, { format: "bulleted-list", icon: "list" }, void 0)] }, void 0)), jsx(Editable, { renderElement: renderElement, renderLeaf: renderLeaf, placeholder: editing ? 'Edit text here ...' : '...', spellCheck: true, autoFocus: true, readOnly: !editing }, void 0)] }), void 0) }), void 0));
 }
 var toggleBlock = function (editor, format) {
     var isActive = isBlockActive(editor, format);

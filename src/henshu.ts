@@ -4,12 +4,11 @@ import each from './elements/Each';
 import EditableText, { TextElements } from './elements/EditableText';
 import EditableImage, { ImageElements } from './elements/EditableImage';
 import EditableRichText, { RichTextElements } from './elements/EditableRichText';
+import { GetterSetter } from './context';
 
 export type HenshuElementProps = {
     elem: string,
-    get: () => any,
-    set: (val: any) => void,
-} & HTMLAttributes<HTMLDivElement>;
+} & GetterSetter & HTMLAttributes<HTMLDivElement>;
 
 
 const henshu: any = {

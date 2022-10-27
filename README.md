@@ -14,7 +14,7 @@ yarn add @strategies/henshu
 then
 
 ```js
-import { Henshu, henshu, useHenshu } from '@strategies/henshu';
+import { Henshu, henshu, useHenshu, HenshuContent } from '@strategies/henshu';
 ```
 
 ## Henshu In Three Layers
@@ -67,7 +67,7 @@ The next layer is our provider, which delegates state to the Henshu elements and
 ```jsx
 const App = () => {
     const [isEditing, setIsEditing] = useState(false);
-    const [content, setContent] = useState({});
+    const [content, setContent] = useState<HenshuContent>({});
 
     return (
         <Henshu content={content} onChange={tree => setContent(tree)} editing={isEditing}>
@@ -100,7 +100,7 @@ const Example = () => {
 
 const App = () => {
     const [isEditing, setIsEditing] = useState(false);
-    const [content, setContent] = useState({
+    const [content, setContent] = useState<HenshuContent>({
         "header": "This is a header",
         "paragraph": "Some paragraph text"
     });
@@ -131,7 +131,7 @@ The plain text elements allow editing of the elements text content.
 Plain text elements are: `a`, `b`, `button`, `div`, `em`, `i`, `h1-6`, `label`, `li`, `p`, `span`, `strong`
 
 #### Rich Text
-You can access a [Slate](https://github.com/ianstormtaylor/slate) component by using
+You can access a [Quill](https://github.com/ianstormtaylor/slate) component by using
 ```
 <henshu.richtext />
 ```
@@ -164,8 +164,8 @@ The Henshu provider component manages what its descendant henshu elements have i
 ```jsx
 const App = () => {
 	const user  = useUser();
-	const [generalContent, setGeneralContent] = useState({});
-	const [priviledgedContent, setPriviledgedContent] = useState({});
+	const [generalContent, setGeneralContent] = useState<HenshuContent>({});
+	const [priviledgedContent, setPriviledgedContent] = useState<HenshuContent>({});
 	
 	return <>
 		<Henshu

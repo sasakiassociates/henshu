@@ -1,18 +1,18 @@
-import { ReactElement, useState, useEffect } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 
 import './Henshu.scss';
-import { StringMap } from '../utils';
+import { HenshuContent } from '../utils';
 import HenshuContext, { DefaultContext, IHenshuContext } from '../context';
 
 
-type Props = {
-    children: ReactElement[];
-    content: StringMap;
+export type HenshuProps = {
+    children: ReactNode;
+    content: HenshuContent;
     editing: boolean;
-    onChange(content: StringMap): void;
+    onChange(content: HenshuContent): any;
 };
 
-export default function Henshu({ children, content, editing, onChange }: Props) {
+export default function Henshu({ children, content, editing, onChange }: HenshuProps) {
     const [context, setContext] = useState<IHenshuContext>(DefaultContext);
 
     useEffect(() => { 

@@ -15,7 +15,7 @@ export function strip(obj: any, props: string|string[]) {
     return clone;
 }
 
-export type StringMap = {
+export type HenshuContent = {
     [key: string]: any;
 };
 

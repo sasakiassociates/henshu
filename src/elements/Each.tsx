@@ -1,22 +1,22 @@
 import { createElement, ReactElement, useCallback, useEffect, useState } from 'react';
 
-import { StringMap } from '../utils';
-import { GetterSetter, useHenshu } from '../context';
+import { HenshuContent } from '../utils';
 import { HenshuElementProps } from '../henshu';
+import { GetterSetter, useHenshu } from '../context';
 
 
 type Selection = {
     i: number;
-    item: StringMap;
+    item: HenshuContent;
     ref: Element;
 };
 
-type EachProps = HenshuElementProps & {
+export type HenshuEachProps = HenshuElementProps & {
     children(bindTo: (key: string) => GetterSetter, i: number): ReactElement;
     max?: number;
 };
 
-export default function Each(props: EachProps) {
+export default function Each(props: HenshuEachProps) {
     const { editing } = useHenshu();
     const { get, set } = props;
     const [items, setItems] = useState(get());
@@ -39,13 +39,13 @@ export default function Each(props: EachProps) {
         set(items);
     }, [items, set]);
 
-    const move = useCallback((item: StringMap, index: number) => {
+    const move = useCallback((item: HenshuContent, index: number) => {
         items.splice(items.indexOf(item), 1);
         items.splice(index, 0, item);
         set(items);
     }, [items, set]);
 
-    const remove = useCallback((item: StringMap) => {
+    const remove = useCallback((item: HenshuContent) => {
         items.splice(items.indexOf(item), 1);
         set(items);
     }, [items, set]);
@@ -62,7 +62,7 @@ export default function Each(props: EachProps) {
     }
 
     return <>
-        {Array.isArray(items) && items.map((item: StringMap, i: number) => {
+        {Array.isArray(items) && items.map((item: HenshuContent, i: number) => {
             const child = props.children((key: string) => ({
                 get: () => item[key] || '',
                 set: (value: any) => {

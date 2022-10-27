@@ -1,8 +1,8 @@
 import { ReactElement, useState, useEffect } from 'react';
 
 import './Henshu.scss';
-import { StringMap } from './utils';
-import HenshuContext, { DefaultContext, IHenshuContext } from './context';
+import { StringMap } from '../utils';
+import HenshuContext, { DefaultContext, IHenshuContext } from '../context';
 
 
 type Props = {

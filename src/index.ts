@@ -1,5 +1,5 @@
-import Henshu from './Henshu';
 import henshu from './henshu';
+import Henshu from './components/Henshu';
 import { useHenshu } from './context';
 
 export {

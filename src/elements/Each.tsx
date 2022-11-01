@@ -1,4 +1,5 @@
 import { createElement, ReactElement, useCallback, useEffect, useState } from 'react';
+import { FiArrowLeft, FiArrowRight, FiPlus, FiX } from 'react-icons/fi';
 
 import { HenshuContent } from '../utils';
 import { HenshuElementProps } from '../henshu';
@@ -12,7 +13,7 @@ type Selection = {
 };
 
 export type HenshuEachProps = HenshuElementProps & {
-    children(bindTo: (key: string) => GetterSetter, i: number): ReactElement;
+    children(bindTo: (key: string) => GetterSetter, i: number): ReactElement
     max?: number;
 };
 
@@ -21,6 +22,7 @@ export default function Each(props: HenshuEachProps) {
     const { get, set } = props;
     const [items, setItems] = useState(get());
     const [selection, setSelection] = useState<Selection|null>(null);
+    const [selectionBox, setSelectionBox] = useState<Element|null>(null);
     let selectionPosition = {};
 
     useEffect(() => {
@@ -50,7 +52,7 @@ export default function Each(props: HenshuEachProps) {
         set(items);
     }, [items, set]);
 
-    if (selection) {
+    if (selection && selection.ref) {
         const { top, left, height, width } = selection.ref.getBoundingClientRect();
 
         selectionPosition = {
@@ -109,14 +111,18 @@ export default function Each(props: HenshuEachProps) {
         })}
 
         {selection && (
-            <div className="Henshu__Each-selection" style={selectionPosition}>
+            <div 
+                ref={el => el && !selectionBox && setSelectionBox(el)}
+                className="Henshu__Each-selection" 
+                style={selectionPosition}
+            >
                 <div className="Henshu__Each-toolbar">
                     <button 
                         className={items.length === 1 ? 'disabled' : ''}
                         disabled={items.length === 1}
                         onClick={() => remove(selection.item)}
                     >
-                        x
+                        <FiX />
                     </button>
 
                     <button 
@@ -124,7 +130,7 @@ export default function Each(props: HenshuEachProps) {
                         disabled={selection.i === 0}
                         onClick={() => move(selection.item, selection.i - 1)}
                     >
-                        &larr;
+                        <FiArrowLeft />
                     </button>
 
                     <button 
@@ -132,7 +138,7 @@ export default function Each(props: HenshuEachProps) {
                         disabled={selection.i === items.length - 1}
                         onClick={() => move(selection.item, selection.i + 1)}
                     >
-                        &rarr;
+                        <FiArrowRight />
                     </button>
 
                     <button 
@@ -140,7 +146,7 @@ export default function Each(props: HenshuEachProps) {
                         disabled={props.max !== undefined && items.length === props.max}
                         onClick={() => add(selection.i + 1)}
                     >
-                        +
+                        <FiPlus />
                     </button>
                 </div>
             </div>

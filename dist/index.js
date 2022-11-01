@@ -27,18 +27,18 @@ OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 
-var __assign$2 = function() {
-    __assign$2 = Object.assign || function __assign(t) {
+var __assign$3 = function() {
+    __assign$3 = Object.assign || function __assign(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
             s = arguments[i];
             for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
         }
         return t;
     };
-    return __assign$2.apply(this, arguments);
+    return __assign$3.apply(this, arguments);
 };
 
-function __rest(s, e) {
+function __rest$1(s, e) {
     var t = {};
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
         t[p] = s[p];
@@ -112,6 +112,97 @@ function __spread() {
     return ar;
 }
 
+var DefaultContext$1 = {
+  color: undefined,
+  size: undefined,
+  className: undefined,
+  style: undefined,
+  attr: undefined
+};
+var IconContext = React__default["default"].createContext && React__default["default"].createContext(DefaultContext$1);
+
+var __assign$2 = undefined && undefined.__assign || function () {
+  __assign$2 = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    }
+
+    return t;
+  };
+
+  return __assign$2.apply(this, arguments);
+};
+
+var __rest = undefined && undefined.__rest || function (s, e) {
+  var t = {};
+
+  for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+
+  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
+  }
+  return t;
+};
+
+function Tree2Element(tree) {
+  return tree && tree.map(function (node, i) {
+    return React__default["default"].createElement(node.tag, __assign$2({
+      key: i
+    }, node.attr), Tree2Element(node.child));
+  });
+}
+
+function GenIcon(data) {
+  return function (props) {
+    return React__default["default"].createElement(IconBase, __assign$2({
+      attr: __assign$2({}, data.attr)
+    }, props), Tree2Element(data.child));
+  };
+}
+function IconBase(props) {
+  var elem = function (conf) {
+    var attr = props.attr,
+        size = props.size,
+        title = props.title,
+        svgProps = __rest(props, ["attr", "size", "title"]);
+
+    var computedSize = size || conf.size || "1em";
+    var className;
+    if (conf.className) className = conf.className;
+    if (props.className) className = (className ? className + ' ' : '') + props.className;
+    return React__default["default"].createElement("svg", __assign$2({
+      stroke: "currentColor",
+      fill: "currentColor",
+      strokeWidth: "0"
+    }, conf.attr, attr, svgProps, {
+      className: className,
+      style: __assign$2(__assign$2({
+        color: props.color || conf.color
+      }, conf.style), props.style),
+      height: computedSize,
+      width: computedSize,
+      xmlns: "http://www.w3.org/2000/svg"
+    }), title && React__default["default"].createElement("title", null, title), props.children);
+  };
+
+  return IconContext !== undefined ? React__default["default"].createElement(IconContext.Consumer, null, function (conf) {
+    return elem(conf);
+  }) : elem(DefaultContext$1);
+}
+
+// THIS FILE IS AUTO GENERATED
+function FiArrowLeft (props) {
+  return GenIcon({"tag":"svg","attr":{"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":"2","strokeLinecap":"round","strokeLinejoin":"round"},"child":[{"tag":"line","attr":{"x1":"19","y1":"12","x2":"5","y2":"12"}},{"tag":"polyline","attr":{"points":"12 19 5 12 12 5"}}]})(props);
+}function FiArrowRight (props) {
+  return GenIcon({"tag":"svg","attr":{"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":"2","strokeLinecap":"round","strokeLinejoin":"round"},"child":[{"tag":"line","attr":{"x1":"5","y1":"12","x2":"19","y2":"12"}},{"tag":"polyline","attr":{"points":"12 5 19 12 12 19"}}]})(props);
+}function FiPlus (props) {
+  return GenIcon({"tag":"svg","attr":{"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":"2","strokeLinecap":"round","strokeLinejoin":"round"},"child":[{"tag":"line","attr":{"x1":"12","y1":"5","x2":"12","y2":"19"}},{"tag":"line","attr":{"x1":"5","y1":"12","x2":"19","y2":"12"}}]})(props);
+}function FiX (props) {
+  return GenIcon({"tag":"svg","attr":{"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":"2","strokeLinecap":"round","strokeLinejoin":"round"},"child":[{"tag":"line","attr":{"x1":"18","y1":"6","x2":"6","y2":"18"}},{"tag":"line","attr":{"x1":"6","y1":"6","x2":"18","y2":"18"}}]})(props);
+}
+
 function useHenshu() {
     return React.useContext(HenshuContext);
 }
@@ -126,6 +217,7 @@ function Each(props) {
     var get = props.get, set = props.set;
     var _a = React.useState(get()), items = _a[0], setItems = _a[1];
     var _b = React.useState(null), selection = _b[0], setSelection = _b[1];
+    var _c = React.useState(null), selectionBox = _c[0], setSelectionBox = _c[1];
     var selectionPosition = {};
     React.useEffect(function () {
         var got = get();
@@ -149,8 +241,8 @@ function Each(props) {
         items.splice(items.indexOf(item), 1);
         set(items);
     }, [items, set]);
-    if (selection) {
-        var _c = selection.ref.getBoundingClientRect(), top_1 = _c.top, left = _c.left, height = _c.height, width = _c.width;
+    if (selection && selection.ref) {
+        var _d = selection.ref.getBoundingClientRect(), top_1 = _d.top, left = _d.left, height = _d.height, width = _d.width;
         selectionPosition = {
             top: "".concat(top_1, "px"),
             left: "".concat(left, "px"),
@@ -163,12 +255,12 @@ function Each(props) {
                     get: function () { return item[key] || ''; },
                     set: function (value) {
                         var _a;
-                        items[i] = __assign$2(__assign$2({}, item), (_a = {}, _a[key] = value, _a));
+                        items[i] = __assign$3(__assign$3({}, item), (_a = {}, _a[key] = value, _a));
                         set(items);
                     },
                 }); }, i);
                 var ref;
-                return editing ? (React.createElement(child.type, __assign$2(__assign$2({}, child.props), { key: child.key, ref: function (r) { return ref = r; }, onMouseEnter: function (e) {
+                return editing ? (React.createElement(child.type, __assign$3(__assign$3({}, child.props), { key: child.key, ref: function (r) { return ref = r; }, onMouseEnter: function (e) {
                         if (child.props.onMouseEnter) {
                             child.props.onMouseEnter(e);
                         }
@@ -184,7 +276,7 @@ function Each(props) {
                         }
                         setTimeout(function () { return selection && selection.ref === ref && setSelection(null); }, 50);
                     } }))) : (child);
-            }), selection && (jsxRuntime.jsx("div", __assign$2({ className: "Henshu__Each-selection", style: selectionPosition }, { children: jsxRuntime.jsxs("div", __assign$2({ className: "Henshu__Each-toolbar" }, { children: [jsxRuntime.jsx("button", __assign$2({ className: items.length === 1 ? 'disabled' : '', disabled: items.length === 1, onClick: function () { return remove(selection.item); } }, { children: "x" })), jsxRuntime.jsx("button", __assign$2({ className: selection.i === 0 ? 'disabled' : '', disabled: selection.i === 0, onClick: function () { return move(selection.item, selection.i - 1); } }, { children: "\u2190" })), jsxRuntime.jsx("button", __assign$2({ className: selection.i === items.length ? 'disabled' : '', disabled: selection.i === items.length - 1, onClick: function () { return move(selection.item, selection.i + 1); } }, { children: "\u2192" })), jsxRuntime.jsx("button", __assign$2({ className: props.max !== undefined && items.length === props.max ? 'disabled' : '', disabled: props.max !== undefined && items.length === props.max, onClick: function () { return add(selection.i + 1); } }, { children: "+" }))] })) })))] });
+            }), selection && (jsxRuntime.jsx("div", __assign$3({ ref: function (el) { return el && !selectionBox && setSelectionBox(el); }, className: "Henshu__Each-selection", style: selectionPosition }, { children: jsxRuntime.jsxs("div", __assign$3({ className: "Henshu__Each-toolbar" }, { children: [jsxRuntime.jsx("button", __assign$3({ className: items.length === 1 ? 'disabled' : '', disabled: items.length === 1, onClick: function () { return remove(selection.item); } }, { children: jsxRuntime.jsx(FiX, {}) })), jsxRuntime.jsx("button", __assign$3({ className: selection.i === 0 ? 'disabled' : '', disabled: selection.i === 0, onClick: function () { return move(selection.item, selection.i - 1); } }, { children: jsxRuntime.jsx(FiArrowLeft, {}) })), jsxRuntime.jsx("button", __assign$3({ className: selection.i === items.length ? 'disabled' : '', disabled: selection.i === items.length - 1, onClick: function () { return move(selection.item, selection.i + 1); } }, { children: jsxRuntime.jsx(FiArrowRight, {}) })), jsxRuntime.jsx("button", __assign$3({ className: props.max !== undefined && items.length === props.max ? 'disabled' : '', disabled: props.max !== undefined && items.length === props.max, onClick: function () { return add(selection.i + 1); } }, { children: jsxRuntime.jsx(FiPlus, {}) }))] })) })))] });
 }
 
 /**
@@ -244,7 +336,7 @@ function EditableText(props) {
     if (!editing) {
         return React.createElement(elem, htmlProps, jsxRuntime.jsx(jsxRuntime.Fragment, { children: get() || '...' }));
     }
-    return React.createElement(elem, __assign$2(__assign$2({}, htmlProps), { contentEditable: true, suppressContentEditableWarning: true, onBlur: function (e) { return update(e, true); }, onFocus: function () { return setFocused(true); }, onInput: update, onPaste: update, content: cached }), cached.trim() || 'Edit text here ...');
+    return React.createElement(elem, __assign$3(__assign$3({}, htmlProps), { contentEditable: true, suppressContentEditableWarning: true, onBlur: function (e) { return update(e, true); }, onFocus: function () { return setFocused(true); }, onInput: update, onPaste: update, content: cached }), cached.trim() || 'Edit text here ...');
 }
 var TextElements = [
     'a',
@@ -2960,8 +3052,8 @@ function EditableImage(props) {
         }
     });
     htmlProps['src'] = get();
-    var node = htmlProps['src'] ? React.createElement(elem, htmlProps) : (jsxRuntime.jsx("div", __assign$2({ className: "Henshu__EditableImage empty ".concat(className) }, { children: jsxRuntime.jsx("em", { children: "..." }) })));
-    return !editing ? node : (jsxRuntime.jsxs("div", __assign$2({ className: "Henshu__EditableImage ".concat(className) }, { children: [node, jsxRuntime.jsx(ReactDragDrop, { onLoad: onLoad }), htmlProps['src'] && jsxRuntime.jsx("button", __assign$2({ onClick: function () { return set(''); } }, { children: "Remove" }))] })));
+    var node = htmlProps['src'] ? React.createElement(elem, htmlProps) : (jsxRuntime.jsx("div", __assign$3({ className: "Henshu__EditableImage empty ".concat(className) }, { children: jsxRuntime.jsx("em", { children: "..." }) })));
+    return !editing ? node : (jsxRuntime.jsxs("div", __assign$3({ className: "Henshu__EditableImage ".concat(className) }, { children: [node, jsxRuntime.jsx(ReactDragDrop, { onLoad: onLoad }), htmlProps['src'] && jsxRuntime.jsx("button", __assign$3({ onClick: function () { return set(''); } }, { children: "Remove" }))] })));
 }
 var ImageElements = [
     'img'
@@ -17250,7 +17342,7 @@ var css_248z$1 = "/*!\n * Quill Editor v1.3.7\n * https://quilljs.com/\n * Copyr
 styleInject(css_248z$1);
 
 function EditableRichText(_a) {
-    var get = _a.get, set = _a.set, props = __rest(_a, ["get", "set"]);
+    var get = _a.get, set = _a.set, props = __rest$1(_a, ["get", "set"]);
     var editing = useHenshu().editing;
     var _b = React.useState(get()), value = _b[0], setValue = _b[1];
     React.useEffect(function () {
@@ -17258,7 +17350,7 @@ function EditableRichText(_a) {
             setValue(get());
         }
     }, [get]);
-    return (jsxRuntime.jsx("div", __assign$2({}, props, { className: "Henshu__EditableRichText ".concat(props.className ? props.className : '') }, { children: editing ? (jsxRuntime.jsx(lib, { theme: "snow", value: value, onChange: function (v) { setValue(v); set(v); } })) : (jsxRuntime.jsx("div", { dangerouslySetInnerHTML: { __html: get() } })) })));
+    return (jsxRuntime.jsx("div", __assign$3({}, props, { className: "Henshu__EditableRichText ".concat(props.className ? props.className : '') }, { children: editing ? (jsxRuntime.jsx(lib, { theme: "snow", value: value, onChange: function (v) { setValue(v); set(v); } })) : (jsxRuntime.jsx("div", { dangerouslySetInnerHTML: { __html: get() } })) })));
 }
 var RichTextElements = [
     'richtext'
@@ -17268,16 +17360,16 @@ var henshu = {
     each: Each
 };
 TextElements.forEach(function (elem) {
-    henshu[elem] = function (props) { return React.createElement(EditableText, __assign$2(__assign$2({}, props), { elem: elem })); };
+    henshu[elem] = function (props) { return React.createElement(EditableText, __assign$3(__assign$3({}, props), { elem: elem })); };
 });
 ImageElements.forEach(function (elem) {
-    henshu[elem] = function (props) { return React.createElement(EditableImage, __assign$2(__assign$2({}, props), { elem: elem })); };
+    henshu[elem] = function (props) { return React.createElement(EditableImage, __assign$3(__assign$3({}, props), { elem: elem })); };
 });
 RichTextElements.forEach(function (elem) {
-    henshu[elem] = function (props) { return React.createElement(EditableRichText, __assign$2({}, props)); };
+    henshu[elem] = function (props) { return React.createElement(EditableRichText, __assign$3({}, props)); };
 });
 
-var css_248z = "._vertical-align, .Henshu__EditableImage.empty em {\n  position: absolute;\n  top: 50%;\n  left: 0;\n  right: 0;\n  margin: auto;\n  transform: translateY(-50%);\n}\n\n.Henshu__Each-selection {\n  position: fixed;\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  z-index: 1;\n  pointer-events: none;\n}\n.Henshu__Each-toolbar {\n  position: absolute;\n  top: 0;\n  right: 0;\n  pointer-events: all;\n  z-index: 1;\n}\n.Henshu__Each-toolbar button {\n  display: inline-block;\n}\n.Henshu__EditableImage {\n  display: inline-block;\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.Henshu__EditableImage.empty {\n  color: #aaa;\n  text-align: center;\n  font-size: 1.2rem;\n  font-weight: 700;\n  background: #f0f0f0;\n}\n.Henshu__EditableImage img {\n  width: 100%;\n  height: auto;\n}\n.Henshu__EditableImage .ReactDragDrop {\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 10;\n  background: rgba(170, 170, 170, 0.3);\n  transition: background 0.2s;\n}\n.Henshu__EditableImage .ReactDragDrop:hover {\n  background: rgba(170, 170, 170, 0.5);\n  transition: background 0.2s;\n}\n.Henshu__EditableImage button {\n  position: relative;\n  z-index: 11;\n}\n.Henshu__EditableRichText {\n  margin: 0;\n  padding: 0;\n}\n.Henshu__EditableRichText ul {\n  list-style: disc;\n}";
+var css_248z = "._vertical-align, .Henshu__EditableImage.empty em {\n  position: absolute;\n  top: 50%;\n  left: 0;\n  right: 0;\n  margin: auto;\n  transform: translateY(-50%);\n}\n\n.Henshu__Each-selection {\n  position: fixed;\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  z-index: 2147483646;\n  pointer-events: none;\n}\n.Henshu__Each-toolbar {\n  position: absolute;\n  top: 0;\n  right: 0;\n  pointer-events: all;\n  z-index: 1;\n}\n.Henshu__Each-toolbar button {\n  display: inline-block;\n}\n.Henshu__EditableImage {\n  display: inline-block;\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.Henshu__EditableImage.empty {\n  color: #aaa;\n  text-align: center;\n  font-size: 1.2rem;\n  font-weight: 700;\n  background: #f0f0f0;\n}\n.Henshu__EditableImage img {\n  width: 100%;\n  height: auto;\n}\n.Henshu__EditableImage .ReactDragDrop {\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 10;\n  background: rgba(170, 170, 170, 0.3);\n  transition: background 0.2s;\n}\n.Henshu__EditableImage .ReactDragDrop:hover {\n  background: rgba(170, 170, 170, 0.5);\n  transition: background 0.2s;\n}\n.Henshu__EditableImage button {\n  position: relative;\n  z-index: 11;\n}\n.Henshu__EditableRichText {\n  margin: 0;\n  padding: 0;\n}\n.Henshu__EditableRichText ul {\n  list-style: disc;\n}";
 styleInject(css_248z);
 
 function Henshu(_a) {
@@ -17289,13 +17381,13 @@ function Henshu(_a) {
                 get: function () { return content[key] || ''; },
                 set: function (value) {
                     var _a;
-                    return onChange(__assign$2(__assign$2({}, content), (_a = {}, _a[key] = value, _a)));
+                    return onChange(__assign$3(__assign$3({}, content), (_a = {}, _a[key] = value, _a)));
                 }
             }); },
             editing: editing
         });
     }, [content, editing, onChange]);
-    return (jsxRuntime.jsx(HenshuContext.Provider, __assign$2({ value: context }, { children: children })));
+    return (jsxRuntime.jsx(HenshuContext.Provider, __assign$3({ value: context }, { children: children })));
 }
 
 exports.Henshu = Henshu;

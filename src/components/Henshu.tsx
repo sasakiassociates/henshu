@@ -1,8 +1,8 @@
 import { ReactElement, useState, useEffect } from 'react';
 
 import './Henshu.scss';
-import { StringMap } from './utils';
-import HenshuContext, { DefaultContext, IHenshuContext } from './context';
+import { StringMap } from '../utils';
+import HenshuContext, { DefaultContext, IHenshuContext } from '../context';
 
 
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
 export default function Henshu({ children, content, editing, onChange }: Props) {
     const [context, setContext] = useState<IHenshuContext>(DefaultContext);
 
-    useEffect(() => { 
+    useEffect(() => {
         setContext({
             bindTo: (key: string) => ({
                 get: () => content[key] || '',

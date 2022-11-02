@@ -9,6 +9,10 @@
     transform: translateY(-50%);
 }
 
+[contenteditable="true"] {//TEMP
+    background: #f6e1e4;
+}
+
 .Henshu {
     &__Each {
         &-selection {

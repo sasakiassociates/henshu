@@ -1,4 +1,4 @@
-import { createElement, ReactElement, useCallback, useEffect, useState } from 'react';
+import { createElement, ReactElement, useCallback, useEffect, useRef, useState } from 'react';
 import { FiArrowLeft, FiArrowRight, FiPlus, FiX } from 'react-icons/fi';
 
 import { HenshuContent } from '../utils';
@@ -23,7 +23,12 @@ export default function Each(props: HenshuEachProps) {
     const [items, setItems] = useState(get());
     const [selection, setSelection] = useState<Selection|null>(null);
     const [selectionBox, setSelectionBox] = useState<Element|null>(null);
+    const timeout = useRef();
     let selectionPosition = {};
+
+    const hideSelection = useCallback(() => {
+        
+    }, []);
 
     useEffect(() => {
         const got = get();
@@ -86,6 +91,7 @@ export default function Each(props: HenshuEachProps) {
                             if (child.props.onMouseEnter) {
                                 child.props.onMouseEnter(e);
                             }
+                            clearTimeout(timeout.current);
 
                             setSelection({ i, item, ref });
                         },
@@ -93,6 +99,7 @@ export default function Each(props: HenshuEachProps) {
                             if (child.props.onMouseOver) {
                                 child.props.onMouseOver(e);
                             }
+                            clearTimeout(timeout.current);
 
                             setSelection({ i, item, ref });
                         },
@@ -101,7 +108,8 @@ export default function Each(props: HenshuEachProps) {
                                 child.props.onMouseLeave(e);
                             }
 
-                            setTimeout(() => selection && selection.ref === ref && setSelection(null), 50);
+                            clearTimeout(timeout.current);
+                            timeout.current = setTimeout(() => selection && selection.ref === ref && setSelection(null), 50);
                         },
                     }
                 )
@@ -115,6 +123,8 @@ export default function Each(props: HenshuEachProps) {
                 ref={el => el && !selectionBox && setSelectionBox(el)}
                 className="Henshu__Each-selection" 
                 style={selectionPosition}
+                onMouseEnter={() => clearTimeout(timeout.current)}
+                onMouseLeave={() => timeout.current = setTimeout(() => setSelection(null), 50)}
             >
                 <div className="Henshu__Each-toolbar">
                     <button 

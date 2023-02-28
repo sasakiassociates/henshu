@@ -218,7 +218,10 @@ function Each(props) {
     var _a = React.useState(get()), items = _a[0], setItems = _a[1];
     var _b = React.useState(null), selection = _b[0], setSelection = _b[1];
     var _c = React.useState(null), selectionBox = _c[0], setSelectionBox = _c[1];
+    var timeout = React.useRef();
     var selectionPosition = {};
+    React.useCallback(function () {
+    }, []);
     React.useEffect(function () {
         var got = get();
         if (!Array.isArray(items)) {
@@ -264,19 +267,22 @@ function Each(props) {
                         if (child.props.onMouseEnter) {
                             child.props.onMouseEnter(e);
                         }
+                        clearTimeout(timeout.current);
                         setSelection({ i: i, item: item, ref: ref });
                     }, onMouseOver: function (e) {
                         if (child.props.onMouseOver) {
                             child.props.onMouseOver(e);
                         }
+                        clearTimeout(timeout.current);
                         setSelection({ i: i, item: item, ref: ref });
                     }, onMouseLeave: function (e) {
                         if (child.props.onMouseLeave) {
                             child.props.onMouseLeave(e);
                         }
-                        setTimeout(function () { return selection && selection.ref === ref && setSelection(null); }, 50);
+                        clearTimeout(timeout.current);
+                        timeout.current = setTimeout(function () { return selection && selection.ref === ref && setSelection(null); }, 50);
                     } }))) : (child);
-            }), selection && (jsxRuntime.jsx("div", __assign$3({ ref: function (el) { return el && !selectionBox && setSelectionBox(el); }, className: "Henshu__Each-selection", style: selectionPosition }, { children: jsxRuntime.jsxs("div", __assign$3({ className: "Henshu__Each-toolbar" }, { children: [jsxRuntime.jsx("button", __assign$3({ className: items.length === 1 ? 'disabled' : '', disabled: items.length === 1, onClick: function () { return remove(selection.item); } }, { children: jsxRuntime.jsx(FiX, {}) })), jsxRuntime.jsx("button", __assign$3({ className: selection.i === 0 ? 'disabled' : '', disabled: selection.i === 0, onClick: function () { return move(selection.item, selection.i - 1); } }, { children: jsxRuntime.jsx(FiArrowLeft, {}) })), jsxRuntime.jsx("button", __assign$3({ className: selection.i === items.length ? 'disabled' : '', disabled: selection.i === items.length - 1, onClick: function () { return move(selection.item, selection.i + 1); } }, { children: jsxRuntime.jsx(FiArrowRight, {}) })), jsxRuntime.jsx("button", __assign$3({ className: props.max !== undefined && items.length === props.max ? 'disabled' : '', disabled: props.max !== undefined && items.length === props.max, onClick: function () { return add(selection.i + 1); } }, { children: jsxRuntime.jsx(FiPlus, {}) }))] })) })))] });
+            }), selection && (jsxRuntime.jsx("div", __assign$3({ ref: function (el) { return el && !selectionBox && setSelectionBox(el); }, className: "Henshu__Each-selection", style: selectionPosition, onMouseEnter: function () { return clearTimeout(timeout.current); }, onMouseLeave: function () { return timeout.current = setTimeout(function () { return setSelection(null); }, 50); } }, { children: jsxRuntime.jsxs("div", __assign$3({ className: "Henshu__Each-toolbar" }, { children: [jsxRuntime.jsx("button", __assign$3({ className: items.length === 1 ? 'disabled' : '', disabled: items.length === 1, onClick: function () { return remove(selection.item); } }, { children: jsxRuntime.jsx(FiX, {}) })), jsxRuntime.jsx("button", __assign$3({ className: selection.i === 0 ? 'disabled' : '', disabled: selection.i === 0, onClick: function () { return move(selection.item, selection.i - 1); } }, { children: jsxRuntime.jsx(FiArrowLeft, {}) })), jsxRuntime.jsx("button", __assign$3({ className: selection.i === items.length ? 'disabled' : '', disabled: selection.i === items.length - 1, onClick: function () { return move(selection.item, selection.i + 1); } }, { children: jsxRuntime.jsx(FiArrowRight, {}) })), jsxRuntime.jsx("button", __assign$3({ className: props.max !== undefined && items.length === props.max ? 'disabled' : '', disabled: props.max !== undefined && items.length === props.max, onClick: function () { return add(selection.i + 1); } }, { children: jsxRuntime.jsx(FiPlus, {}) }))] })) })))] });
 }
 
 /**

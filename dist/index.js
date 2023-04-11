@@ -17354,13 +17354,13 @@ var _sanitize = function (str) {
 function EditableRichText(_a) {
     var get = _a.get, set = _a.set, props = __rest$1(_a, ["get", "set"]);
     var editing = useHenshu().editing;
-    var _b = React.useState(_sanitize(get())), value = _b[0], setValue = _b[1];
+    var _b = React.useState(get()), value = _b[0], setValue = _b[1];
     React.useEffect(function () {
-        if (_sanitize(get()) !== value) {
-            setValue(_sanitize(get()));
+        if (get() !== value) {
+            setValue(get());
         }
     }, [get]);
-    return (jsxRuntime.jsx("div", __assign$3({}, props, { className: "Henshu__EditableRichText ".concat(props.className ? props.className : '') }, { children: editing ? (jsxRuntime.jsx(lib, { theme: "snow", value: value, onChange: function (v) { setValue(v); set(v); } })) : (jsxRuntime.jsx("div", { dangerouslySetInnerHTML: { __html: get() } })) })));
+    return (jsxRuntime.jsx("div", __assign$3({}, props, { className: "Henshu__EditableRichText ".concat(props.className ? props.className : '') }, { children: editing ? (jsxRuntime.jsx(lib, { theme: "snow", value: value, onChange: function (v) { setValue(v); set(v); } })) : (jsxRuntime.jsx("div", { dangerouslySetInnerHTML: { __html: _sanitize(get()) } })) })));
 }
 var RichTextElements = [
     'richtext'

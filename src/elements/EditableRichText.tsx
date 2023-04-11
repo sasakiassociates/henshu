@@ -11,11 +11,11 @@ const _sanitize = (str = '') => str.split('<p><br></p>').join('');
 
 export default function EditableRichText({ get, set, ...props }: HenshuElementProps) {
     const { editing } = useHenshu();
-    const [value, setValue] = useState(_sanitize(get()));
+    const [value, setValue] = useState(get());
 
     useEffect(() => {
-        if (_sanitize(get()) !== value) {
-            setValue(_sanitize(get()));
+        if (get() !== value) {
+            setValue(get());
         }
     }, [get]);
    
@@ -28,7 +28,7 @@ export default function EditableRichText({ get, set, ...props }: HenshuElementPr
                     onChange={v => { setValue(v); set(v) }}
                 />
             ) : (
-                <div dangerouslySetInnerHTML={{ __html: get() }} />
+                <div dangerouslySetInnerHTML={{ __html: _sanitize(get()) }} />
             )}
         </div>
     );

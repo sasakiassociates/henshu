@@ -17345,13 +17345,13 @@ var _sanitize = function (str) {
 function EditableRichText(_a) {
     var get = _a.get, set = _a.set, props = __rest$1(_a, ["get", "set"]);
     var editing = useHenshu().editing;
-    var _b = useState(_sanitize(get())), value = _b[0], setValue = _b[1];
+    var _b = useState(get()), value = _b[0], setValue = _b[1];
     useEffect(function () {
-        if (_sanitize(get()) !== value) {
-            setValue(_sanitize(get()));
+        if (get() !== value) {
+            setValue(get());
         }
     }, [get]);
-    return (jsx("div", __assign$3({}, props, { className: "Henshu__EditableRichText ".concat(props.className ? props.className : '') }, { children: editing ? (jsx(lib, { theme: "snow", value: value, onChange: function (v) { setValue(v); set(v); } })) : (jsx("div", { dangerouslySetInnerHTML: { __html: get() } })) })));
+    return (jsx("div", __assign$3({}, props, { className: "Henshu__EditableRichText ".concat(props.className ? props.className : '') }, { children: editing ? (jsx(lib, { theme: "snow", value: value, onChange: function (v) { setValue(v); set(v); } })) : (jsx("div", { dangerouslySetInnerHTML: { __html: _sanitize(get()) } })) })));
 }
 var RichTextElements = [
     'richtext'

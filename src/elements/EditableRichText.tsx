@@ -6,13 +6,16 @@ import { useHenshu } from '../context';
 import { HenshuElementProps } from '../henshu';
 
 
+const _sanitize = (str = '') => str.split('<p><br></p>').join('');
+
+
 export default function EditableRichText({ get, set, ...props }: HenshuElementProps) {
     const { editing } = useHenshu();
-    const [value, setValue] = useState(get());
+    const [value, setValue] = useState(_sanitize(get()));
 
     useEffect(() => {
-        if (get() !== value) {
-            setValue(get());
+        if (_sanitize(get()) !== value) {
+            setValue(_sanitize(get()));
         }
     }, [get]);
    

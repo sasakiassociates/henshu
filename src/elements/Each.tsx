@@ -23,7 +23,7 @@ export default function Each(props: HenshuEachProps) {
     const [items, setItems] = useState(get());
     const [selection, setSelection] = useState<Selection|null>(null);
     const [selectionBox, setSelectionBox] = useState<Element|null>(null);
-    const timeout = useRef();
+    const timeout = useRef<number | undefined>();
     let selectionPosition = {};
 
     const hideSelection = useCallback(() => {

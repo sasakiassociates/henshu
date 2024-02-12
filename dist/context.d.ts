@@ -1,5 +1,5 @@
 /// <reference types="react" />
-export declare type GetterSetter = {
+export type GetterSetter = {
     get(): any;
     set(value: any): void;
 };

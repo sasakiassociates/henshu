@@ -3,6 +3,6 @@
  * specified in the second argument.
  */
 export declare function strip(obj: any, props: string | string[]): any;
-export declare type HenshuContent = {
+export type HenshuContent = {
     [key: string]: any;
 };
